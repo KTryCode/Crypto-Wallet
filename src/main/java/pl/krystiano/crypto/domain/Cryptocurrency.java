@@ -11,6 +11,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
+import java.util.Currency;
 
 @Entity
 @Data
@@ -21,11 +22,12 @@ public class Cryptocurrency {
     public Cryptocurrency() {
     }
 
-    public Cryptocurrency(String name, String shortName, double amount, LocalDate dateOfPurchase) {
+    public Cryptocurrency(String name, String shortName, double amount, LocalDate dateOfPurchase, double valueOnPurchaseDate) {
         this.name = name;
         this.shortName = shortName;
         this.amount = amount;
         this.dateOfPurchase = dateOfPurchase;
+        this.valueOnPurchaseDate = valueOnPurchaseDate;
     }
 
     @Id
@@ -40,6 +42,8 @@ public class Cryptocurrency {
     @NotNull
     @JsonFormat(pattern = "MM/dd/yyyy")
     private LocalDate dateOfPurchase;
+    @NotNull
+    private double valueOnPurchaseDate;
 
 }
 

@@ -18,6 +18,6 @@ public class CryptocurrencyServiceImpl implements CryptocurrencyService {
 
     @Override
     public Cryptocurrency save(Cryptocurrency cryptocurrency) {
-        return null;
+        return this.cryptocurrencyRepository.save(cryptocurrency);
     }
 }
