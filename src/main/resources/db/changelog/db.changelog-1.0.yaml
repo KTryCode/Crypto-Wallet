@@ -25,7 +25,7 @@ databaseChangeLog:
             name: date_of_purchase
             type: date
         - column:
-            name: value_on_purchase_date
+            name: course_on_purchase_date
             type: number
 
         tableName: cryptocurrency

@@ -1,33 +1,30 @@
 package pl.krystiano.crypto.domain;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import org.springframework.beans.factory.annotation.Required;
+import lombok.*;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
-import java.util.Currency;
 
 @Entity
 @Data
+@Getter
+@Setter
 @AllArgsConstructor
 public class Cryptocurrency {
-
 
     public Cryptocurrency() {
     }
 
-    public Cryptocurrency(String name, String shortName, double amount, LocalDate dateOfPurchase, double valueOnPurchaseDate) {
+    public Cryptocurrency(String name, String shortName, double amount, LocalDate dateOfPurchase, double courseOnPurchaseDate) {
         this.name = name;
         this.shortName = shortName;
         this.amount = amount;
         this.dateOfPurchase = dateOfPurchase;
-        this.valueOnPurchaseDate = valueOnPurchaseDate;
+        this.courseOnPurchaseDate = courseOnPurchaseDate;
     }
 
     @Id
@@ -43,7 +40,7 @@ public class Cryptocurrency {
     @JsonFormat(pattern = "MM/dd/yyyy")
     private LocalDate dateOfPurchase;
     @NotNull
-    private double valueOnPurchaseDate;
+    private double courseOnPurchaseDate;
 
 }
 

@@ -22,8 +22,10 @@ public class CryptoApplication implements CommandLineRunner {
 
     @Override
     public void run(String... strings) throws Exception {
-        this.cryptocurrencyService.save(new Cryptocurrency("aa", "A", (double) 1.1, LocalDate.now(), (double) 1000.2));
-
-
+        this.cryptocurrencyService.save(new Cryptocurrency("Bitcoin", "BTC",  0.5, LocalDate.now(), 10000));
+        this.cryptocurrencyService.save(new Cryptocurrency("Ethereum", "ETH",  1, LocalDate.now(), 2000));
+        this.cryptocurrencyService.save(new Cryptocurrency("Bitcoin Cash", "BCH",  6, LocalDate.now(), 1200));
+        this.cryptocurrencyService.save(new Cryptocurrency("Ripple", "XRP",  450, LocalDate.now(), 45 ));
+        this.cryptocurrencyService.save(new Cryptocurrency("Litecoin", "LTC",  1100, LocalDate.now(), 50));
     }
 }
