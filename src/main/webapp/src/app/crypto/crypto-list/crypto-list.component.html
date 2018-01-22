@@ -1,7 +1,34 @@
 <ul>
-  <li *ngFor="let crypto of cryptos" class="list-group-item">
-    <div>
-      <span>{{crypto.shortname}}</span>
-    </div>
-  </li>
+  <ul>
+    <ul class="list-group-item">
+      <div class="row text-center">
+        <div class="col-sm-2">
+          <span>Symbol</span>
+        </div>
+        <div class="col-sm-2">
+          <span>Amount</span>
+        </div>
+        <div class="col-sm-2">
+          <span>Course on purchase</span>
+        </div>
+      </div>
+    </ul>
+  </ul>
+
+
+  <ul>
+    <li *ngFor="let crypto of cryptos" class="list-group-item">
+      <div class="row text-center">
+        <div class="col-sm-2">
+          <span>{{crypto.shortname}}</span>
+        </div>
+        <div class="col-sm-2">
+          <span>{{crypto.amount}}</span>
+        </div>
+        <div class="col-sm-2">
+          <span>{{crypto.courseOnPurchaseDate}}$</span>
+        </div>
+      </div>
+    </li>
+  </ul>
 </ul>
