@@ -1,13 +1,15 @@
 import { Injectable } from '@angular/core';
 import {Http} from "@angular/http";
+import "rxjs/add/operator/map";
+import 'rxjs/Rx';
 
 @Injectable()
-export class CryptoServiceService {
+export class CryptoService {
 
-  constructor(private http:Http) { }
+  constructor(private http: Http) { }
 
-  getCrypto(){
-    return this.http.get('/api/crypto')
+  getCryptos(){
+    return this.http.get('/api/crypto').map(response => response.json());
   }
 
 }

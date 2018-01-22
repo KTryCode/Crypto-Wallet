@@ -1,15 +1,15 @@
 import { TestBed, inject } from '@angular/core/testing';
 
-import { CryptoServiceService } from './crypto.service';
+import { CryptoService } from './crypto.service';
 
-describe('CryptoServiceService', () => {
+describe('CryptoService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [CryptoServiceService]
+      providers: [CryptoService]
     });
   });
 
-  it('should be created', inject([CryptoServiceService], (service: CryptoServiceService) => {
+  it('should be created', inject([CryptoService], (service: CryptoService) => {
     expect(service).toBeTruthy();
   }));
 });
