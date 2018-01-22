@@ -2,8 +2,6 @@ package pl.krystiano.crypto.domain;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.*;
-
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -11,8 +9,7 @@ import java.time.LocalDate;
 
 @Entity
 @Data
-@AllArgsConstructor
-@NoArgsConstructor
+@RequiredArgsConstructor
 public class Cryptocurrency {
 
 
