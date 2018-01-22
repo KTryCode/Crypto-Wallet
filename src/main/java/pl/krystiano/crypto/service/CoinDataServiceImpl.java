@@ -9,6 +9,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import pl.krystiano.crypto.domain.CoinData;
 import pl.krystiano.crypto.repository.CoinDataRepository;
 
@@ -32,9 +33,8 @@ public class CoinDataServiceImpl implements CoinDataService {
         return this.coinDataRepository.findAll();
     }
 
-
     @Override
-    @Scheduled(fixedRate = 5000)
+    @Scheduled(fixedRate = 30000)
     public void parseCoinDataToDatabase() {
         ObjectMapper mapper = new ObjectMapper();
         List<CoinData> coinDataList;
