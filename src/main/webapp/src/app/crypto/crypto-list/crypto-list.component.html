@@ -1,3 +1,7 @@
-<p>
-  crypto-list works!
-</p>
+<ul>
+  <li *ngFor="let crypto of cryptos" class="list-group-item">
+    <div>
+      <span>{{crypto.shortname}}</span>
+    </div>
+  </li>
+</ul>

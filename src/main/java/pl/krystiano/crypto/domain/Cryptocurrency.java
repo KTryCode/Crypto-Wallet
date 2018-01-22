@@ -19,9 +19,9 @@ public class Cryptocurrency {
     public Cryptocurrency() {
     }
 
-    public Cryptocurrency(String name, String shortName, double amount, LocalDate dateOfPurchase, double courseOnPurchaseDate) {
+    public Cryptocurrency(String name, String shortname, double amount, LocalDate dateOfPurchase, double courseOnPurchaseDate) {
         this.name = name;
-        this.shortName = shortName;
+        this.shortname = shortname;
         this.amount = amount;
         this.dateOfPurchase = dateOfPurchase;
         this.courseOnPurchaseDate = courseOnPurchaseDate;
@@ -33,7 +33,7 @@ public class Cryptocurrency {
     @NotNull
     private String name;
     @NotNull
-    private String shortName;
+    private String shortname;
     @NotNull
     private double amount;
     @NotNull
