@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {Cryptocurrency} from "../crypto.model";
+import {Coin} from "../coin.model";
 import {CryptoService} from "../crypto.service";
 
 @Component({
@@ -10,14 +10,14 @@ import {CryptoService} from "../crypto.service";
 
 export class CryptoListComponent implements OnInit {
 
-  cryptos: Cryptocurrency[] = [];
+  coins: Coin[] = [];
 
   constructor(private cryptoService: CryptoService) {
   }
 
   ngOnInit() {
     this.cryptoService.getCryptos().subscribe(
-      (cryptos: any[]) => this.cryptos = cryptos,
+      (coins: any[]) => this.coins = coins,
       (error) => console.log(error));
   }
 

@@ -5,19 +5,24 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import pl.krystiano.crypto.domain.CoinData;
-import pl.krystiano.crypto.service.CoinDataService;
+import pl.krystiano.crypto.service.CoinPriceService;
 
 
 @RestController
 @RequestMapping("api/coinbase")
-public class CoinbaseController {
+public class PriceController {
 
     @Autowired
-    private CoinDataService coinDataService;
+    private CoinPriceService coinPriceService;
 
-    @GetMapping(value = {"", "/"})
+    @GetMapping(value = {"/list"})
     public Iterable<CoinData> listAll() {
-        return this.coinDataService.listAll();
+        return this.coinPriceService.listAll();
+    }
+
+    @RequestMapping("/update")
+    public void updatePrices(){
+        this.coinPriceService.updatePrices();
     }
 
 }

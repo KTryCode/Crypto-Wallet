@@ -6,5 +6,5 @@ import org.springframework.stereotype.Repository;
 import pl.krystiano.crypto.domain.Coin;
 
 @Repository
-public interface CoinRepository extends JpaRepository<Coin, String> {
+public interface WalletRepository extends JpaRepository<Coin, String> {
 }

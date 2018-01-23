@@ -7,27 +7,28 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import pl.krystiano.crypto.domain.Coin;
 import pl.krystiano.crypto.domain.CoinData;
-import pl.krystiano.crypto.repository.CoinDataRepository;
+import pl.krystiano.crypto.repository.CoinPriceRepository;
 
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
-import java.util.regex.Pattern;
 
 @Service
-public class CoinDataServiceImpl implements CoinDataService {
+@Transactional
+public class CoinPriceServiceImpl implements CoinPriceService {
 
     Logger logger = LoggerFactory.getLogger(this.getClass());
 
     @Autowired
-    private CoinDataRepository coinDataRepository;
+    private CoinPriceRepository coinDataRepository;
+    @Autowired
+    private WalletService walletService;
 
     @Override
     public Iterable<CoinData> listAll() {
@@ -35,15 +36,32 @@ public class CoinDataServiceImpl implements CoinDataService {
     }
 
     @Override
-    @Transactional
-    @Scheduled(fixedRate = 10000)
-    public void parseCoinDataToDatabase() {
+    public void updatePrices(){
+        getCoinPricesAndParseToDatabase();
+        Iterable<Coin> coins = this.walletService.listAll();
+        CoinData coinData;
+        double coinPrice;
+
+        for(Coin coinToUpdate: coins){
+            String coinSymbol = coinToUpdate.getSymbol();
+            coinData = coinDataRepository.findBySymbol(coinSymbol).get(0);
+            coinPrice=coinData.getPrice_usd();
+            coinToUpdate.setPrice_usd(coinPrice);
+        }
+        this.walletService.save(coins);
+        logger.info("Prices of coins parsed to your wallet");
+    }
+
+    @Override
+    public void getCoinPricesAndParseToDatabase() {
+
         ObjectMapper mapper = new ObjectMapper();
         List<CoinData> coinDataList;
+
         try {
             coinDataList = mapper.readValue(new URL("https://api.coinmarketcap.com/v1/ticker/"), new TypeReference<List<CoinData>>() {});
             this.coinDataRepository.save(coinDataList);
-            logger.info("Crypto data updated -> {}", LocalTime.now());
+            logger.info("Prices of cryptocurrencies updated -> {}", LocalTime.now());
 
         } catch (MalformedURLException e) {
             e.printStackTrace();

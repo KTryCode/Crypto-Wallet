@@ -17,16 +17,16 @@
 
 
   <ul>
-    <li *ngFor="let crypto of cryptos" class="list-group-item">
+    <li *ngFor="let coin of coins" class="list-group-item">
       <div class="row text-center">
         <div class="col-sm-2">
-          <span>{{crypto.shortname}}</span>
+          <span>{{coin.symbol}}</span>
         </div>
         <div class="col-sm-2">
-          <span>{{crypto.amount}}</span>
+          <span>{{coin.amount}}</span>
         </div>
         <div class="col-sm-2">
-          <span>{{crypto.courseOnPurchaseDate}}$</span>
+          <span>{{coin.priceOnPurchaseDate}}$</span>
         </div>
       </div>
     </li>
