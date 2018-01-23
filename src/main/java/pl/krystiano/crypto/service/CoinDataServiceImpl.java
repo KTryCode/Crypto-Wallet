@@ -19,6 +19,7 @@ import java.net.URL;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
+import java.util.regex.Pattern;
 
 @Service
 public class CoinDataServiceImpl implements CoinDataService {
@@ -34,7 +35,8 @@ public class CoinDataServiceImpl implements CoinDataService {
     }
 
     @Override
-    @Scheduled(fixedRate = 30000)
+    @Transactional
+    @Scheduled(fixedRate = 10000)
     public void parseCoinDataToDatabase() {
         ObjectMapper mapper = new ObjectMapper();
         List<CoinData> coinDataList;
