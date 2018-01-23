@@ -2,23 +2,23 @@ package pl.krystiano.crypto.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import pl.krystiano.crypto.domain.Cryptocurrency;
-import pl.krystiano.crypto.service.CryptocurrencyService;
+import pl.krystiano.crypto.domain.Coin;
+import pl.krystiano.crypto.service.CoinService;
 
 @RestController
 @RequestMapping("api/crypto")
 public class CryptocurrencyController {
 
     @Autowired
-    private CryptocurrencyService cryptocurrencyService;
+    private CoinService cryptocurrencyService;
 
     @GetMapping(value = {"", "/"})
-    public Iterable<Cryptocurrency> listAll() {
+    public Iterable<Coin> listAll() {
         return this.cryptocurrencyService.listAll();
     }
 
     @PostMapping("/add")
-    public Cryptocurrency saveCryptocurrency(@RequestBody Cryptocurrency cryptocurrency){
+    public Coin saveCryptocurrency(@RequestBody Coin cryptocurrency){
         return this.cryptocurrencyService.save(cryptocurrency);
     }
 

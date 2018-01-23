@@ -16,7 +16,6 @@ import javax.validation.constraints.NotNull;
 public class CoinData {
 
     @Id
-    @NotNull
     private String id;
     private String name;
     private String symbol;

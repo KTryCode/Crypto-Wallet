@@ -5,31 +5,24 @@ import lombok.*;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.Table;
 import java.time.LocalDate;
 
 @Entity
 @Data
 @RequiredArgsConstructor
-public class Cryptocurrency {
+@Table(name = "my_wallet")
+public class Coin {
 
-
-    public Cryptocurrency(String name, String shortname, double amount, LocalDate dateOfPurchase, double courseOnPurchaseDate) {
-        this.name = name;
-        this.shortname = shortname;
+    public Coin(String symbol, double amount, double courseOnPurchaseDate) {
+        this.symbol = symbol;
         this.amount = amount;
-        this.dateOfPurchase = dateOfPurchase;
         this.courseOnPurchaseDate = courseOnPurchaseDate;
     }
 
     @Id
-    @GeneratedValue
-    private long id;
-    private String name;
-    private String shortname;
+    private String symbol;
     private double amount;
     private double courseOnPurchaseDate;
-    @JsonFormat(pattern = "MM/dd/yyyy")
-    private LocalDate dateOfPurchase;
-
 }
 
