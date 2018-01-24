@@ -1,34 +1,31 @@
-<div class="row list-group-item-heading">
-  <div class="col-sm-2">
+<div class="row list-group-item-heading text-center text-danger">
+  <div class="col-xs-3">
     <span>Symbol</span>
   </div>
-  <div class="col-sm-2">
+  <div class="col-xs-3">
     <span>Amount</span>
   </div>
-  <div class="col-sm-2">
+  <div class="col-xs-3">
     <span>Course on purchase</span>
   </div>
-  <div class="col-sm-2">
+  <div class="col-xs-3">
     <span>Price [USD]</span>
   </div>
 </div>
 
 
-<ul>
-  <li *ngFor="let coin of coins" class="list-group-item">
-    <div class="row text-center">
-      <div class="col-sm-2">
+
+    <div class="row text-center" *ngFor="let coin of coins">
+      <div class="col-xs-3">
         <span>{{coin.symbol}}</span>
       </div>
-      <div class="col-sm-2">
+      <div class="col-xs-3">
         <span>{{coin.amount}}</span>
       </div>
-      <div class="col-sm-2">
+      <div class="col-xs-3">
         <span>{{coin.priceOnPurchaseDate}}$</span>
       </div>
-      <div class="col-sm-2">
+      <div class="col-xs-3">
         <span>{{coin.price_usd.toFixed(2)}}$</span>
       </div>
     </div>
-  </li>
-</ul>

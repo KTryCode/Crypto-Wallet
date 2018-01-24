@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {Coin} from "../coin.model";
 import {CryptoService} from "../crypto.service";
 
+
 @Component({
   selector: 'app-crypto-list',
   templateUrl: './crypto-list.component.html',
@@ -10,7 +11,7 @@ import {CryptoService} from "../crypto.service";
 
 export class CryptoListComponent implements OnInit {
 
-  coins: Coin[] = [];
+  private coins: Coin[] = [];
 
   constructor(private cryptoService: CryptoService) {
   }
