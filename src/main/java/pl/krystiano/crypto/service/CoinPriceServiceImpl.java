@@ -20,7 +20,6 @@ import java.time.LocalTime;
 import java.util.List;
 
 @Service
-@Transactional
 public class CoinPriceServiceImpl implements CoinPriceService {
 
     Logger logger = LoggerFactory.getLogger(this.getClass());
@@ -31,35 +30,39 @@ public class CoinPriceServiceImpl implements CoinPriceService {
     private WalletService walletService;
 
     @Override
+    @Transactional
     public Iterable<CoinData> listAll() {
         return this.coinDataRepository.findAll();
     }
 
     @Override
-    public void updatePrices(){
+    @Transactional
+    public void updatePrices() {
         getCoinPricesAndParseToDatabase();
-        Iterable<Coin> coins = this.walletService.listAll();
+        Iterable<Coin> coinsInMyWallet = this.walletService.listAll();
         CoinData coinData;
         double coinPrice;
 
-        for(Coin coinToUpdate: coins){
+        for (Coin coinToUpdate : coinsInMyWallet) {
             String coinSymbol = coinToUpdate.getSymbol();
             coinData = coinDataRepository.findBySymbol(coinSymbol).get(0);
-            coinPrice=coinData.getPrice_usd();
+            coinPrice = coinData.getPrice_usd();
             coinToUpdate.setPrice_usd(coinPrice);
         }
-        this.walletService.save(coins);
+        this.walletService.save(coinsInMyWallet);
         logger.info("Prices of coins parsed to your wallet");
     }
 
     @Override
+    @Transactional
     public void getCoinPricesAndParseToDatabase() {
 
         ObjectMapper mapper = new ObjectMapper();
         List<CoinData> coinDataList;
 
         try {
-            coinDataList = mapper.readValue(new URL("https://api.coinmarketcap.com/v1/ticker/"), new TypeReference<List<CoinData>>() {});
+            coinDataList = mapper.readValue(new URL("https://api.coinmarketcap.com/v1/ticker/"), new TypeReference<List<CoinData>>() {
+            });
             this.coinDataRepository.save(coinDataList);
             logger.info("Prices of cryptocurrencies updated -> {}", LocalTime.now());
 

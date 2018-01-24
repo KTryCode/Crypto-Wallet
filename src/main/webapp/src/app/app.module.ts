@@ -8,6 +8,7 @@ import { CryptoComponent } from './crypto/crypto.component';
 import { CryptoListComponent } from './crypto/crypto-list/crypto-list.component';
 import {CryptoService} from "./crypto/crypto.service";
 import {HttpModule} from "@angular/http";
+import { CryptoChartComponent } from './crypto/crypto-chart/crypto-chart.component';
 
 
 @NgModule({
@@ -15,7 +16,8 @@ import {HttpModule} from "@angular/http";
     AppComponent,
     NavigationBarComponent,
     CryptoComponent,
-    CryptoListComponent
+    CryptoListComponent,
+    CryptoChartComponent
   ],
   imports: [
     BrowserModule,

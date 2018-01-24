@@ -1,34 +1,34 @@
+<div class="row list-group-item-heading">
+  <div class="col-sm-2">
+    <span>Symbol</span>
+  </div>
+  <div class="col-sm-2">
+    <span>Amount</span>
+  </div>
+  <div class="col-sm-2">
+    <span>Course on purchase</span>
+  </div>
+  <div class="col-sm-2">
+    <span>Price [USD]</span>
+  </div>
+</div>
+
+
 <ul>
-  <ul>
-    <ul class="list-group-item">
-      <div class="row text-center">
-        <div class="col-sm-2">
-          <span>Symbol</span>
-        </div>
-        <div class="col-sm-2">
-          <span>Amount</span>
-        </div>
-        <div class="col-sm-2">
-          <span>Course on purchase</span>
-        </div>
+  <li *ngFor="let coin of coins" class="list-group-item">
+    <div class="row text-center">
+      <div class="col-sm-2">
+        <span>{{coin.symbol}}</span>
       </div>
-    </ul>
-  </ul>
-
-
-  <ul>
-    <li *ngFor="let coin of coins" class="list-group-item">
-      <div class="row text-center">
-        <div class="col-sm-2">
-          <span>{{coin.symbol}}</span>
-        </div>
-        <div class="col-sm-2">
-          <span>{{coin.amount}}</span>
-        </div>
-        <div class="col-sm-2">
-          <span>{{coin.priceOnPurchaseDate}}$</span>
-        </div>
+      <div class="col-sm-2">
+        <span>{{coin.amount}}</span>
       </div>
-    </li>
-  </ul>
+      <div class="col-sm-2">
+        <span>{{coin.priceOnPurchaseDate}}$</span>
+      </div>
+      <div class="col-sm-2">
+        <span>{{coin.price_usd.toFixed(2)}}$</span>
+      </div>
+    </div>
+  </li>
 </ul>
