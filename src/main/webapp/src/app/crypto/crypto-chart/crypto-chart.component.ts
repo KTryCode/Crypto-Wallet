@@ -2,7 +2,6 @@ import {Component, OnInit} from '@angular/core';
 import {Chart} from 'chart.js'
 import {CryptoService} from "../crypto.service";
 import 'rxjs/add/operator/map';
-import {forEach} from "@angular/router/src/utils/collection";
 
 
 @Component({
@@ -13,58 +12,85 @@ import {forEach} from "@angular/router/src/utils/collection";
 export class CryptoChartComponent implements OnInit {
 
   chart = [];
-  labels = [];
-  coins = [];
+  colorsDefault = [
+    'rgba(255, 99, 132, 0.7)',
+    'rgba(54, 162, 235, 0.7)',
+    'rgba(255, 206, 86, 0.7)',
+    'rgba(75, 192, 192, 0.7)',
+    'rgba(153, 102, 255, 0.7)',
+    'rgba(255, 159, 64, 0.7)',
+    'rgba(235, 0, 40, 0.7)',
+    'rgba(0, 200, 86, 0.7)',];
+
+  colorsHovered = [
+    'rgba(255, 99, 132, 0.85)',
+    'rgba(54, 162, 235, 0.85)',
+    'rgba(255, 206, 86, 0.85)',
+    'rgba(75, 192, 192, 0.85)',
+    'rgba(153, 102, 255, 0.85)',
+    'rgba(255, 159, 64, 0.85)',
+    'rgba(235, 0, 40, 0.85)',
+    'rgba(0, 200, 86, 0.85)',];
 
 
   constructor(private cryptoService: CryptoService) {
-
-
   }
-  ngOnInit() {
 
-    let test = [];
+  ngOnInit() {
+    let symbols = [];
+    let values: number[] = [];
+
     this.cryptoService.getCryptos().subscribe(
       (coins: any[]) => {
-        this.coins = coins;
+        coins.forEach(function (coin) {
+          values.push(coin.price_usd);
+          symbols.push(coin.symbol);
+        });
 
-        this.coins.forEach(function (coin) {
-          console.log(coin.symbol);
-          test.push(coin.symbol)
+        this.chart = new Chart('canvas', {
+          type: 'doughnut',
+          position: 'right',
+          data: {
+            labels: symbols,
+            datasets: [
+              {
+                data: values,
+                borderWidth : 3.5,
+                borderColor: "#ffffff",
+                backgroundColor: this.colorsDefault,
+                hoverBackgrounColor : this.colorsHovered,
+                fill: false,
+              },
+            ]
+          },
+          options: {
+            cutoutPercentage: 35,
+            animation : {
+              animateRotate: true,
+            },
+            legend: {
+              display: true,
+              position: 'right',
+              labels: {
+                fontFamily: 'sans-serif',
+                fontColor: 'rgb(30 , 100 , 200)',
+                fontSize: 15,
+                fontStyle: 'bold',
+                padding: 18,
+              }
+            },
+            title: {
+              text: 'Pennies in my pocket',
+              position: 'bottom',
+              fontSize: 15,
+              display: true,
+              padding: 30
+            }
+          }
         })
-
+        ;
       },
       (error) => console.log(error));
-
-    this.labels = test;
-
-/*    let symbols = this.cryptoService.getCryptos().subscribe();
-    console.log(symbols);
-    symbols.then(){l
-
-    }*/
-
-    this.chart = new Chart('canvas', {
-      type: 'doughnut',
-      data: {
-        labels: this.labels,
-        //"a", "b", "c", "d"
-        datasets: [
-          {
-            data: [2, 3, 5],
-            borderColor: "#000000",
-            backgroundColor: ["#ba1723", "#15ba13", "#1d1fba"],
-            fill: true
-          },
-        ]
-      },
-      options: {
-        legend: {
-          display: false
-        },
-
-      }
-    });
   }
 
 }
