@@ -24,6 +24,15 @@ public class Coin {
     private double amount;
     private double priceOnPurchaseDate;
     private double price_usd;
+    private double value;
+
+    public double getValue() {
+        return value;
+    }
+
+    public void setValue(double value) {
+        this.value = value;
+    }
 
     public String getSymbol() {
         return symbol;

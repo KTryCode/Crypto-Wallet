@@ -21,7 +21,6 @@ export class CryptoChartComponent implements OnInit {
     'rgba(255, 159, 64, 0.7)',
     'rgba(235, 0, 40, 0.7)',
     'rgba(0, 200, 86, 0.7)',];
-
   colorsHovered = [
     'rgba(255, 99, 132, 0.85)',
     'rgba(54, 162, 235, 0.85)',
@@ -74,8 +73,7 @@ export class CryptoChartComponent implements OnInit {
               labels: {
                 fontFamily: 'sans-serif',
                 fontColor: 'rgb(30 , 100 , 200)',
-                fontSize: 15,
-                fontStyle: 'bold',
+                fontSize: 13,
                 padding: 18,
               }
             },

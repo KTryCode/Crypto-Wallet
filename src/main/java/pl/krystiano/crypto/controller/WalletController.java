@@ -17,9 +17,15 @@ public class WalletController {
         return this.walletService.listAll();
     }
 
+    @GetMapping("/update/coin_values")
+    public Iterable<Coin> updateCoinValues() {
+        return this.walletService.valueCalculator();
+    }
+
     @PostMapping("/add")
-    public Coin saveCryptocurrency(@RequestBody Coin cryptocurrency){
+    public Coin saveCryptocurrency(@RequestBody Coin cryptocurrency) {
         return this.walletService.save(cryptocurrency);
     }
+
 
 }

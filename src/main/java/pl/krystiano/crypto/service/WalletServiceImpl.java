@@ -40,4 +40,15 @@ public class WalletServiceImpl implements WalletService {
         logger.info("Coin deleted from wallet! -> {}", coin);
         this.walletRepository.delete(coin);
     }
+
+    @Override
+    public Iterable<Coin> valueCalculator(){
+        Iterable<Coin> coinsInWallet = this.listAll();
+        double valueOfCoin;
+        for(Coin coin: coinsInWallet){
+            valueOfCoin = coin.getAmount() * coin.getPrice_usd();
+            coin.setValue(valueOfCoin);
+        }
+        return coinsInWallet;
+    }
 }

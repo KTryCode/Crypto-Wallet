@@ -25,19 +25,19 @@ public class CoinPriceServiceImpl implements CoinPriceService {
     Logger logger = LoggerFactory.getLogger(this.getClass());
 
     @Autowired
-    private CoinPriceRepository coinDataRepository;
+    private CoinPriceRepository coinPriceRepository;
     @Autowired
     private WalletService walletService;
 
     @Override
     @Transactional
     public Iterable<CoinData> listAll() {
-        return this.coinDataRepository.findAll();
+        return this.coinPriceRepository.findAll();
     }
 
     @Override
     @Transactional
-    public void updatePrices() {
+    public Iterable<Coin> updatePrices() {
         getCoinPricesAndParseToDatabase();
         Iterable<Coin> coinsInMyWallet = this.walletService.listAll();
         CoinData coinData;
@@ -45,12 +45,13 @@ public class CoinPriceServiceImpl implements CoinPriceService {
 
         for (Coin coinToUpdate : coinsInMyWallet) {
             String coinSymbol = coinToUpdate.getSymbol();
-            coinData = coinDataRepository.findBySymbol(coinSymbol).get(0);
+            coinData = coinPriceRepository.findBySymbol(coinSymbol).get(0);
             coinPrice = coinData.getPrice_usd();
             coinToUpdate.setPrice_usd(coinPrice);
         }
-        this.walletService.save(coinsInMyWallet);
+
         logger.info("Prices of coins parsed to your wallet");
+        return this.walletService.save(coinsInMyWallet);
     }
 
     @Override
@@ -63,8 +64,7 @@ public class CoinPriceServiceImpl implements CoinPriceService {
         try {
             coinDataList = mapper.readValue(new URL("https://api.coinmarketcap.com/v1/ticker/"), new TypeReference<List<CoinData>>() {
             });
-            this.coinDataRepository.save(coinDataList);
-            logger.info("Prices of cryptocurrencies updated -> {}", LocalTime.now());
+            this.coinPriceRepository.save(coinDataList);
 
         } catch (MalformedURLException e) {
             e.printStackTrace();

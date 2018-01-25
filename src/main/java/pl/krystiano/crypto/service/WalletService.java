@@ -11,4 +11,5 @@ public interface WalletService {
 
     Iterable<Coin> save(Iterable<Coin> coins);
 
+    Iterable<Coin> valueCalculator();
 }
