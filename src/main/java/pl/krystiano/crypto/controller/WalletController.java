@@ -21,7 +21,7 @@ public class WalletController {
     }
 
     @GetMapping("/update_values")
-    public Iterable<Coin> updateCoinValues() {
+    public Iterable<Coin> updateCoinValuesUSD() {
         return this.walletService.valueCalculator();
     }
 
@@ -30,7 +30,7 @@ public class WalletController {
         return this.walletService.save(cryptocurrency);
     }
 
-    @RequestMapping("/update")
+    @GetMapping("/update_prices")
     public Iterable<Coin> getPriceUsdFromDatabase() {
         return this.walletService.getPricesFromDatabase();
     }

@@ -20,10 +20,6 @@ export class CryptoListComponent implements OnInit {
     this.cryptoService.getCryptos().subscribe(
       (coins: any[]) => this.coins = coins,
       (error) => console.log(error));
-
-    this.cryptoService.getValues().subscribe(
-      (coins: any[]) => this.coins = coins,
-      (error) => console.log(error));
   }
 
 }

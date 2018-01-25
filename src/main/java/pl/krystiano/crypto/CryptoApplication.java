@@ -31,9 +31,9 @@ public class CryptoApplication implements CommandLineRunner {
     @Override
     public void run(String... strings) {
         this.walletService.save(new Coin("BTC",  0.5, 10000));
-        this.walletService.save(new Coin( "ETH",  1, 2000));
+        this.walletService.save(new Coin( "ETH",  4, 2000));
         this.walletService.save(new Coin("BCH",  6, 1200));
-        this.walletService.save(new Coin("XRP",  450, 45 ));
+        this.walletService.save(new Coin("XRP",  800, 45 ));
         this.walletService.save(new Coin("LTC",  40,  50));
         this.walletService.save(new Coin("DASH", 2, 500));
 

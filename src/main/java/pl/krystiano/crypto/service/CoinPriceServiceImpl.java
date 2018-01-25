@@ -56,6 +56,9 @@ public class CoinPriceServiceImpl implements CoinPriceService {
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
+        } finally{
+            this.walletService.getPricesFromDatabase();
+            this.walletService.valueCalculator();
         }
         return null;
     }

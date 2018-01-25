@@ -39,7 +39,7 @@ export class CryptoChartComponent implements OnInit {
     let symbols = [];
     let values: number[] = [];
 
-    this.cryptoService.getValues().subscribe(
+    this.cryptoService.getCryptos().subscribe(
       (coins: any[]) => {
         coins.forEach(function (coin) {
           symbols.push(coin.symbol);
