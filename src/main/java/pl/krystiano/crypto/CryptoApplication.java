@@ -34,11 +34,11 @@ public class CryptoApplication implements CommandLineRunner {
         this.walletService.save(new Coin( "ETH",  1, 2000));
         this.walletService.save(new Coin("BCH",  6, 1200));
         this.walletService.save(new Coin("XRP",  450, 45 ));
-        this.walletService.save(new Coin("LTC",  1100,  50));
+        this.walletService.save(new Coin("LTC",  40,  50));
         this.walletService.save(new Coin("DASH", 2, 500));
 
         this.coinPriceService.getCoinPricesAndParseToDatabase();
-
-        this.coinPriceService.updatePrices();
+        this.walletService.getPricesFromDatabase();
+        this.walletService.valueCalculator();
     }
 }

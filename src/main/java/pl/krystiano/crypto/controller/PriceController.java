@@ -9,7 +9,7 @@ import pl.krystiano.crypto.service.CoinPriceService;
 
 
 @RestController
-@RequestMapping("api/coinbase")
+@RequestMapping("api/courses")
 public class PriceController {
 
     @Autowired
@@ -20,9 +20,8 @@ public class PriceController {
         return this.coinPriceService.listAll();
     }
 
-    @RequestMapping("/update")
-    public void updatePrices(){
-        this.coinPriceService.updatePrices();
+    @GetMapping(value ={"/update"})
+    public Iterable<CoinData> updatePrices(){
+        return this.coinPriceService.getCoinPricesAndParseToDatabase();
     }
-
 }

@@ -7,7 +7,5 @@ public interface CoinPriceService {
 
     Iterable<CoinData> listAll();
 
-    Iterable<Coin> updatePrices();
-
-    void getCoinPricesAndParseToDatabase();
+    Iterable<CoinData> getCoinPricesAndParseToDatabase();
 }

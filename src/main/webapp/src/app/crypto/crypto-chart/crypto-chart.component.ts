@@ -39,11 +39,13 @@ export class CryptoChartComponent implements OnInit {
     let symbols = [];
     let values: number[] = [];
 
-    this.cryptoService.getCryptos().subscribe(
+    this.cryptoService.getValues().subscribe(
       (coins: any[]) => {
         coins.forEach(function (coin) {
-          values.push(coin.price_usd);
           symbols.push(coin.symbol);
+          console.log(symbols);
+          values.push(coin.value);
+          console.log(values);
         });
 
         this.chart = new Chart('canvas', {
@@ -63,6 +65,7 @@ export class CryptoChartComponent implements OnInit {
             ]
           },
           options: {
+            responsive: true,
             cutoutPercentage: 35,
             animation : {
               animateRotate: true,
@@ -74,7 +77,7 @@ export class CryptoChartComponent implements OnInit {
                 fontFamily: 'sans-serif',
                 fontColor: 'rgb(30 , 100 , 200)',
                 fontSize: 13,
-                padding: 18,
+                padding: 10,
               }
             },
             title: {

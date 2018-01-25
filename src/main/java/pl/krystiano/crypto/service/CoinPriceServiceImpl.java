@@ -35,36 +35,18 @@ public class CoinPriceServiceImpl implements CoinPriceService {
         return this.coinPriceRepository.findAll();
     }
 
-    @Override
-    @Transactional
-    public Iterable<Coin> updatePrices() {
-        getCoinPricesAndParseToDatabase();
-        Iterable<Coin> coinsInMyWallet = this.walletService.listAll();
-        CoinData coinData;
-        double coinPrice;
-
-        for (Coin coinToUpdate : coinsInMyWallet) {
-            String coinSymbol = coinToUpdate.getSymbol();
-            coinData = coinPriceRepository.findBySymbol(coinSymbol).get(0);
-            coinPrice = coinData.getPrice_usd();
-            coinToUpdate.setPrice_usd(coinPrice);
-        }
-
-        logger.info("Prices of coins parsed to your wallet");
-        return this.walletService.save(coinsInMyWallet);
-    }
 
     @Override
     @Transactional
-    public void getCoinPricesAndParseToDatabase() {
+    public Iterable<CoinData> getCoinPricesAndParseToDatabase() {
 
         ObjectMapper mapper = new ObjectMapper();
-        List<CoinData> coinDataList;
+        List<CoinData> coinPriceData;
 
         try {
-            coinDataList = mapper.readValue(new URL("https://api.coinmarketcap.com/v1/ticker/"), new TypeReference<List<CoinData>>() {
+            coinPriceData = mapper.readValue(new URL("https://api.coinmarketcap.com/v1/ticker/"), new TypeReference<List<CoinData>>() {
             });
-            this.coinPriceRepository.save(coinDataList);
+            return this.coinPriceRepository.save(coinPriceData);
 
         } catch (MalformedURLException e) {
             e.printStackTrace();
@@ -75,5 +57,6 @@ public class CoinPriceServiceImpl implements CoinPriceService {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        return null;
     }
 }
