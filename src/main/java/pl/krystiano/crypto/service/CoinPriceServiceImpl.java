@@ -7,6 +7,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import pl.krystiano.crypto.domain.Coin;
@@ -57,6 +58,7 @@ public class CoinPriceServiceImpl implements CoinPriceService {
         } catch (IOException e) {
             e.printStackTrace();
         } finally{
+            logger.info("Am I working?");
             this.walletService.getPricesFromDatabase();
             this.walletService.valueCalculator();
         }

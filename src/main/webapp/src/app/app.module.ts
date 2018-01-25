@@ -11,6 +11,7 @@ import {HttpModule} from "@angular/http";
 import { CryptoChartComponent } from './crypto/crypto-chart/crypto-chart.component';
 import {FormsModule} from "@angular/forms";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
+import { CryptoAddComponent } from './crypto/crypto-add/crypto-add.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
     NavigationBarComponent,
     CryptoComponent,
     CryptoListComponent,
-    CryptoChartComponent
+    CryptoChartComponent,
+    CryptoAddComponent
   ],
   imports: [
     BrowserModule,

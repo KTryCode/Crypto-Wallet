@@ -1,0 +1,22 @@
+<div class="form-group row" style="padding-top: 24px">
+  <div class="col-xs-1"></div>
+  <div class="col-xs-2">
+    <input type="text"
+           class="form-control"
+           placeholder="Symbol"
+           [(ngModel)]="added_coin_symbol"/>
+  </div>
+  <div class="col-xs-3">
+    <input type="number"
+           class="form-control text-center"
+           placeholder="Amount"
+           [(ngModel)]="added_coin_amount"/>
+  </div>
+  <div class="col-xs-2">
+    <button type="button"
+            class="btn btn-primary"
+            (click)="onCoinAdd()"
+    >Add
+    </button>
+  </div>
+</div>
