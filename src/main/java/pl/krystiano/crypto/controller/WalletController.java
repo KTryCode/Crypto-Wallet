@@ -27,7 +27,10 @@ public class WalletController {
 
     @PostMapping("/add")
     public Coin saveCryptocurrency(@RequestBody Coin cryptocurrency) {
-        return this.walletService.save(cryptocurrency);
+        Coin coinToAdd = this.walletService.save(cryptocurrency);
+        getPriceUsdFromDatabase();
+        updateCoinValuesUSD();
+        return coinToAdd;
     }
 
     @GetMapping("/update_prices")

@@ -38,7 +38,6 @@ public class CoinPriceServiceImpl implements CoinPriceService {
 
 
     @Override
-    @Transactional
     public Iterable<CoinData> getCoinPricesAndParseToDatabase() {
 
         ObjectMapper mapper = new ObjectMapper();
@@ -58,9 +57,7 @@ public class CoinPriceServiceImpl implements CoinPriceService {
         } catch (IOException e) {
             e.printStackTrace();
         } finally{
-            logger.info("Am I working?");
             this.walletService.getPricesFromDatabase();
-            this.walletService.valueCalculator();
         }
         return null;
     }

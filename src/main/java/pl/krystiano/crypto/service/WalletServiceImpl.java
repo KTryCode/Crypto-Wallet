@@ -66,6 +66,7 @@ public class WalletServiceImpl implements WalletService {
             coinToUpdate.setPrice_usd(coinPrice);
         }
 
+        valueCalculator();
         logger.info("getPricesFromDatabase(): Prices of coins parsed to your wallet");
         return this.save(coinsInMyWallet);
     }

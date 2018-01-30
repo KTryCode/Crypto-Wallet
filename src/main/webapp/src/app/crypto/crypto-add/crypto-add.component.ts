@@ -16,6 +16,7 @@ export class CryptoAddComponent implements OnInit {
 
   ngOnInit() {
   }
+
   onCoinAdd(){
     let coin : Coin = new Coin(this.added_coin_symbol, this.added_coin_amount, null, null, null);
     console.log("added coin symbol: ", this.added_coin_symbol);
