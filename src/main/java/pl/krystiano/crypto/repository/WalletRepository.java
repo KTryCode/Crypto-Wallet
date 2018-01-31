@@ -11,7 +11,7 @@ import pl.krystiano.crypto.domain.Coin;
 import java.util.List;
 
 @Repository
-public interface WalletRepository extends JpaRepository<Coin, String> {
+public interface WalletRepository extends JpaRepository<Coin, Integer> {
     List<Coin> findBySymbol(String symbol);
 
     @Modifying

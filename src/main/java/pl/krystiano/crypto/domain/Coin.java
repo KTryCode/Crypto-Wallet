@@ -19,10 +19,20 @@ public class Coin {
     }
 
     @Id
+    @GeneratedValue(strategy =GenerationType.AUTO)
+    private long id;
     private String symbol;
     private double amount;
     private double price_usd;
     private double value;
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
 
     public double getValue() {
         return value;

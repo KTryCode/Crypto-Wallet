@@ -31,7 +31,6 @@ public class WalletServiceImpl implements WalletService {
     }
 
 
-    //TODO change update method to add amount of already owned coins
     @Override
     public Coin save(Coin coin) {
         Coin coinToUpdate = coin;
@@ -63,7 +62,8 @@ public class WalletServiceImpl implements WalletService {
         logger.info("WalletService: valueCalculator()");
         Iterable<Coin> ownedCoins = this.listAll();
         ownedCoins.forEach(coin -> {
-            coin.setValue(coin.getAmount() * coin.getPrice_usd());
+            double valueUsd = coin.getAmount() * coin.getPrice_usd();
+            coin.setValue(valueUsd);
         });
         return this.walletRepository.save(ownedCoins);
     }
