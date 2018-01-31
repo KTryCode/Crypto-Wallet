@@ -1,29 +1,20 @@
-  <div class="row list-group-item-heading text-center text-danger">
-    <div class="col-xs-3">
-      <span>Symbol</span>
-    </div>
-    <div class="col-xs-3">
-      <span>Amount</span>
-    </div>
-    <div class="col-xs-3">
-      <span>Price [USD]</span>
-    </div>
-    <div class="col-xs-3">
-      <span>Value [USD]</span>
-    </div>
-  </div>
-
-  <div class="row text-center" *ngFor="let coin of coins" style="padding-top: 8px">
-    <div class="col-xs-3">
-      <span>{{coin.symbol}}</span>
-    </div>
-    <div class="col-xs-3">
-      <span>{{coin.amount}}</span>
-    </div>
-    <div class="col-xs-3">
-      <span>{{coin.price_usd.toFixed(2)}}</span>
-    </div>
-    <div class="col-xs-3">
-      <span>{{coin.value.toFixed(2)}}</span>
-    </div>
-  </div>
+<div>
+  <table class="table table-responsive table-hover" >
+    <thead>
+    <tr class="bg-primary">
+      <th class="text-center">Symbol</th>
+      <th class="text-center">Amount</th>
+      <th class="text-center">Price [USD]</th>
+      <th class="text-center">Value [USD]</th>
+    </tr>
+    </thead>
+    <tbody class="text-center">
+    <tr *ngFor="let coin of coins" style="padding-top: 8px">
+      <td>{{coin.symbol}}</td>
+      <td>{{coin.amount.toFixed(3)}}</td>
+      <td>{{coin.price_usd.toFixed(2)}}</td>
+      <td>{{coin.value.toFixed(2)}}</td>
+    </tr>
+    </tbody>
+  </table>
+</div>
