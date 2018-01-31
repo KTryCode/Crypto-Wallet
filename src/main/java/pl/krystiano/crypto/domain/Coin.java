@@ -13,16 +13,14 @@ public class Coin {
     public Coin() {
     }
 
-    public Coin(String symbol, double amount, double courseOnPurchaseDate) {
+    public Coin(String symbol, double amount) {
         this.symbol = symbol;
         this.amount = amount;
-        this.priceOnPurchaseDate = courseOnPurchaseDate;
     }
 
     @Id
     private String symbol;
     private double amount;
-    private double priceOnPurchaseDate;
     private double price_usd;
     private double value;
 
@@ -48,14 +46,6 @@ public class Coin {
 
     public void setAmount(double amount) {
         this.amount = amount;
-    }
-
-    public double getPriceOnPurchaseDate() {
-        return priceOnPurchaseDate;
-    }
-
-    public void setPriceOnPurchaseDate(double priceOnPurchaseDate) {
-        this.priceOnPurchaseDate = priceOnPurchaseDate;
     }
 
     public double getPrice_usd() {

@@ -1,6 +1,8 @@
-TODO 1. Aktualizacja listy po dodaniu nowej kryptowaluty
+TODO 1. Aktualizacja listy po dodaniu nowej kryptowaluty- po zatwierdzeniu wprowadzania nowej monety lista ma sie zaktualizować
 TODO 2. Dodanie posiadanej już kryptowaluty ma skutkować zwiększeniem jej ilości w portfelu
 TODO 3. Naprawa kolorów
 TODO 4. Dodanie przycisku aktualizujacego kursy i przeliczajacego wartości
 TODO 5. Informacja o zmianie kursy przez ostatnie 24h/72h/tydzień
 TODO 6. Walidacja formularza dodania kryptowaluty - można dodac jedynie te kryptowaluty, które występują w bazie
+TODO 7. Poprawic model monety
+TODO 8. Zakaz wprowadzania ujemnej liczby krypto
