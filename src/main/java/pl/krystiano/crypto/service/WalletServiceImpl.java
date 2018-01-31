@@ -1,24 +1,21 @@
 package pl.krystiano.crypto.service;
 
-import org.aspectj.weaver.Iterators;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import pl.krystiano.crypto.domain.Coin;
 import pl.krystiano.crypto.domain.CoinData;
 import pl.krystiano.crypto.repository.CoinPriceRepository;
 import pl.krystiano.crypto.repository.WalletRepository;
 
-import java.util.List;
-import java.util.Optional;
 import java.util.stream.Stream;
 import java.util.stream.StreamSupport;
 
-import static org.springframework.data.domain.ExampleMatcher.GenericPropertyMatchers.contains;
-
 @Service
+@Transactional(propagation = Propagation.REQUIRES_NEW)
 public class WalletServiceImpl implements WalletService {
 
     private Logger logger = LoggerFactory.getLogger(this.getClass());
@@ -37,13 +34,15 @@ public class WalletServiceImpl implements WalletService {
     //TODO change update method to add amount of already owned coins
     @Override
     public Coin save(Coin coin) {
-        if(isCoinAlreadyOwned(coin)){
-            Coin coinToUpdate = this.walletRepository.findBySymbol(coin.getSymbol()).get(0);
-            double totalAmountOfCoin = coinToUpdate.getAmount()+coin.getAmount();
-            coin.setAmount(totalAmountOfCoin);
+        Coin coinToUpdate = coin;
+        if (isCoinAlreadyOwned(coin)) {
+            coinToUpdate = this.walletRepository.findBySymbol(coin.getSymbol()).get(0);
+            double totalAmountOfCoin = coinToUpdate.getAmount() + coin.getAmount();
+            coinToUpdate.setAmount(totalAmountOfCoin);
+            return this.updateCoinAmount(coinToUpdate);
         }
-        logger.info("Coin saved -> {}", coin);
-        return this.walletRepository.save(coin);
+        logger.info("Coin saved -> {}", coinToUpdate);
+        return this.walletRepository.save(coinToUpdate);
     }
 
     //TODO Fix to method save only when coin is not exist
@@ -52,6 +51,7 @@ public class WalletServiceImpl implements WalletService {
         return this.walletRepository.save(coins);
     }
 
+    //TODO implement method
     @Override
     public void remove(Coin coin) {
         logger.info("Coin deleted from wallet! -> {}", coin);
@@ -64,7 +64,6 @@ public class WalletServiceImpl implements WalletService {
         Iterable<Coin> ownedCoins = this.listAll();
         ownedCoins.forEach(coin -> {
             coin.setValue(coin.getAmount() * coin.getPrice_usd());
-            logger.info(coin.getSymbol() + " price: " + coin.getValue());
         });
         return this.walletRepository.save(ownedCoins);
     }
@@ -95,5 +94,13 @@ public class WalletServiceImpl implements WalletService {
         Stream<String> symbolsOfOwnedCoins = streamOfOwnedCoins.map(Coin::getSymbol);
 
         return symbolsOfOwnedCoins.anyMatch(searchedCoinSymbol::equals);
+    }
+
+    @Override
+    public Coin updateCoinAmount(Coin coin) {
+        String coinSymbol=coin.getSymbol();
+        double coinAmount = coin.getAmount();
+        this.walletRepository.updateCoinAmount(coinSymbol, coinAmount);
+        return coin;
     }
 }

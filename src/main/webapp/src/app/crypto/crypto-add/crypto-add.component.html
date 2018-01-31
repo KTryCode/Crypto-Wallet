@@ -10,12 +10,14 @@
     <input type="number"
            class="form-control text-center"
            placeholder="Amount"
+           (keyup.enter)="onCoinAdd($event)"
            [(ngModel)]="added_coin_amount"/>
   </div>
   <div class="col-xs-2">
     <button type="button"
             class="btn btn-primary"
-            (click)="onCoinAdd()"
+            (keyup.enter)="onCoinAdd($event)"
+            (click)="onCoinAdd($event)"
     >Add
     </button>
   </div>

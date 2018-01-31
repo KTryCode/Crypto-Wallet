@@ -10,8 +10,11 @@ public interface WalletService {
     void remove(Coin coin);
 
     Iterable<Coin> save(Iterable<Coin> coins);
+    Coin updateCoinAmount(Coin coin);
 
     Iterable<Coin> valueCalculator();
 
     Iterable<Coin> getPricesFromDatabase();
+
+
 }

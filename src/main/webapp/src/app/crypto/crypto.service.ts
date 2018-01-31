@@ -17,17 +17,16 @@ export class CryptoService {
   }
 
   addCoin(coin: Coin) {
-    console.log(this.ifAlreadyExist(coin));
     return this.http.post('/api/wallet/add', coin).map(response => response.json());
   }
 
   ifAlreadyExist(coin: Coin) {
-    let costam = this.getCryptos()
+    let searchedCoin = this.getCryptos()
       .filter((data) => data.symbol == coin.symbol)
       .subscribe((result) => {
-          console.log("ifAlreadyExist -> " + result);
+          console.log("ifAlreadyOwned -> " + result);
       });
-    console.log(costam!=null);
-    return costam != null;
+    console.log(searchedCoin!=null);
+    return searchedCoin != null;
   }
 }

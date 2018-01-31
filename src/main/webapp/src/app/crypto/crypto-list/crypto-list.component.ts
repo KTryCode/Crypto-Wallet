@@ -17,9 +17,23 @@ export class CryptoListComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.cryptoService.getCryptos().subscribe(
-      (coins: any[]) => this.coins = coins,
-      (error) => console.log(error));
+    this.cryptoService.getCryptos()
+      .subscribe(
+        (coins: any[]) => this.coins = coins,
+        (error) => console.log(error));
+
+
+    //TODO To update, not create new one
+    this.cryptoService.onCoinAdded
+      .subscribe(
+        (coin: Coin) => {
+          this.cryptoService.getCryptos()
+            .subscribe(
+              (coins: any[]) => this.coins = coins,
+              (error) => console.log(error));
+        }
+      );
   }
+
 
 }
