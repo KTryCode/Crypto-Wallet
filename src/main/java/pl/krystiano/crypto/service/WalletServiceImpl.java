@@ -11,6 +11,7 @@ import pl.krystiano.crypto.domain.CoinData;
 import pl.krystiano.crypto.repository.CoinPriceRepository;
 import pl.krystiano.crypto.repository.WalletRepository;
 
+import java.util.List;
 import java.util.stream.Stream;
 import java.util.stream.StreamSupport;
 
@@ -24,6 +25,8 @@ public class WalletServiceImpl implements WalletService {
     private WalletRepository walletRepository;
     @Autowired
     private CoinPriceRepository coinPriceRepository;
+    @Autowired
+    private CoinPriceService coinPriceService;
 
     @Override
     public Iterable<Coin> listAll() {
@@ -33,15 +36,22 @@ public class WalletServiceImpl implements WalletService {
 
     @Override
     public Coin save(Coin coin) {
-        Coin coinToUpdate = coin;
-        if (isCoinAlreadyOwned(coin)) {
-            coinToUpdate = this.walletRepository.findBySymbol(coin.getSymbol()).get(0);
-            double totalAmountOfCoin = coinToUpdate.getAmount() + coin.getAmount();
-            coinToUpdate.setAmount(totalAmountOfCoin);
-            return this.updateCoinAmount(coinToUpdate);
+        Coin coinToSave = coin;
+        if (ifCoinExists(coinToSave)) {
+            if (isCoinAlreadyOwned(coin)) {
+
+                coinToSave = this.walletRepository.findBySymbol(coin.getSymbol()).get(0);
+                double totalAmountOfCoin = coinToSave.getAmount() + coin.getAmount();
+                coinToSave.setAmount(totalAmountOfCoin);
+                return this.updateCoinAmount(coinToSave);
+            } else {
+                logger.info("Coin saved -> {}", coinToSave);
+                return this.walletRepository.save(coinToSave);
+            }
+        } else {
+            logger.info("WalletService.save(): Coin '{}' does not exist in DB. Saving not completed", coin.getSymbol());
+            return coin;
         }
-        logger.info("Coin saved -> {}", coinToUpdate);
-        return this.walletRepository.save(coinToUpdate);
     }
 
     //TODO Fix to method save only when coin is not exist
@@ -76,14 +86,19 @@ public class WalletServiceImpl implements WalletService {
 
         for (Coin coinToUpdate : ownedCoins) {
             String coinSymbol = coinToUpdate.getSymbol();
-            CoinData coinData = coinPriceRepository.findBySymbol(coinSymbol).get(0);
-            double coinPrice = coinData.getPrice_usd();
-            coinToUpdate.setPrice_usd(coinPrice);
+            List<CoinData> coinData = coinPriceRepository.findBySymbol(coinSymbol);
+            if (!coinData.isEmpty()) {
+                logger.info("znaleziono kryptowalute w bazie -> {}", coinSymbol);
+                double coinPrice = coinData.get(0).getPrice_usd();
+                coinToUpdate.setPrice_usd(coinPrice);
+            } else {
+                logger.info("No Coin '{}' in database", coinSymbol);
+            }
         }
-
         valueCalculator();
         logger.info("getPricesFromDatabase(): Prices of coins downloaded from CoinBase and parsed to your wallet");
         return this.save(ownedCoins);
+
     }
 
     //TODO awful... get rid of it
@@ -92,15 +107,26 @@ public class WalletServiceImpl implements WalletService {
         Iterable<Coin> ownedCoins = this.listAll();
         Stream<Coin> streamOfOwnedCoins = StreamSupport.stream(ownedCoins.spliterator(), false);
         Stream<String> symbolsOfOwnedCoins = streamOfOwnedCoins.map(Coin::getSymbol);
-
-        return symbolsOfOwnedCoins.anyMatch(searchedCoinSymbol::equals);
+        boolean isCoinOwned = symbolsOfOwnedCoins.anyMatch(searchedCoinSymbol::equals);
+        if(isCoinOwned) logger.info("Coin is already owned.");
+        return isCoinOwned;
     }
 
     @Override
     public Coin updateCoinAmount(Coin coin) {
-        String coinSymbol=coin.getSymbol();
+        String coinSymbol = coin.getSymbol();
         double coinAmount = coin.getAmount();
         this.walletRepository.updateCoinAmount(coinSymbol, coinAmount);
         return coin;
+    }
+
+    private boolean ifCoinExists(Coin searchedCoin) {
+        String searchedCoinSymbol = searchedCoin.getSymbol();
+        Iterable<CoinData> coinsInDatabase = this.coinPriceService.listAll();
+        Stream<CoinData> streamOfCoinsInDatabase = StreamSupport.stream(coinsInDatabase.spliterator(), false);
+        Stream<String> symbolsOfCoinsInDatabase = streamOfCoinsInDatabase.map(CoinData::getSymbol);
+        boolean isCoinExist = symbolsOfCoinsInDatabase.anyMatch(searchedCoinSymbol::equals);
+        if(isCoinExist) logger.info("WalletService.ifCoinExists. Coin {} exist.");
+        return isCoinExist;
     }
 }

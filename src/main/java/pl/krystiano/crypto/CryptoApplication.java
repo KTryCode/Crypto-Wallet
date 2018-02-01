@@ -30,9 +30,8 @@ public class CryptoApplication implements CommandLineRunner {
 
     @Override
     public void run(String... strings) {
-        myFinances();
-
         this.coinPriceService.getCoinPricesAndParseToDatabase();
+        myFinances();
         this.walletService.getPricesFromDatabase();
         this.walletService.valueCalculator();
     }

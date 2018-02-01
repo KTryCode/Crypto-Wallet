@@ -92,6 +92,7 @@ export class CryptoChartComponent implements OnInit {
     this.cryptoService.onCoinAdded
       .subscribe(
         () => {
+          this.chart = [];
           symbols = [];
           values = [];
           this.cryptoService.getCryptos()
