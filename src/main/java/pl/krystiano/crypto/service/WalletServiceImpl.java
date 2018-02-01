@@ -35,22 +35,19 @@ public class WalletServiceImpl implements WalletService {
 
 
     @Override
-    public Coin save(Coin coin) {
-        Coin coinToSave = coin;
+    public Coin save(Coin coinToSave) {
         if (ifCoinExists(coinToSave)) {
-            if (isCoinAlreadyOwned(coin)) {
-
-                coinToSave = this.walletRepository.findBySymbol(coin.getSymbol()).get(0);
-                double totalAmountOfCoin = coinToSave.getAmount() + coin.getAmount();
-                coinToSave.setAmount(totalAmountOfCoin);
-                return this.updateCoinAmount(coinToSave);
+            if (isCoinAlreadyOwned(coinToSave)) {
+                Coin coinInWallet = this.walletRepository.findBySymbol(coinToSave.getSymbol()).get(0);
+                double totalAmountOfCoin = coinToSave.getAmount() + coinInWallet.getAmount();
+                coinInWallet.setAmount(totalAmountOfCoin);
+                return this.updateCoinAmount(coinInWallet);
             } else {
-                logger.info("Coin saved -> {}", coinToSave);
                 return this.walletRepository.save(coinToSave);
             }
         } else {
-            logger.info("WalletService.save(): Coin '{}' does not exist in DB. Saving not completed", coin.getSymbol());
-            return coin;
+            logger.info("WalletService.save(): Coin '{}' does not exist in DB. Saving not completed", coinToSave.getSymbol());
+            return coinToSave;
         }
     }
 

@@ -32,9 +32,8 @@ public class CryptoApplication implements CommandLineRunner {
     public void run(String... strings) {
         this.coinPriceService.getCoinPricesAndParseToDatabase();
         myFinances();
-        this.walletService.getPricesFromDatabase();
-        this.walletService.valueCalculator();
     }
+
 
     private void myFinances() {
         this.walletService.save(new Coin("BTC", 0.0098));
