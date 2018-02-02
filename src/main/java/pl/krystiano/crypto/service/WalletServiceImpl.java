@@ -51,10 +51,12 @@ public class WalletServiceImpl implements WalletService {
         }
     }
 
-    //TODO Fix to method save only when coin is not exist
     @Override
     public Iterable<Coin> save(Iterable<Coin> coins) {
-        return this.walletRepository.save(coins);
+        for(Coin coin: coins){
+            this.save(coin);
+        }
+        return coins;
     }
 
     //TODO implement method
@@ -85,11 +87,11 @@ public class WalletServiceImpl implements WalletService {
             String coinSymbol = coinToUpdate.getSymbol();
             List<CoinData> coinData = coinPriceRepository.findBySymbol(coinSymbol);
             if (!coinData.isEmpty()) {
-                logger.info("znaleziono kryptowalute w bazie -> {}", coinSymbol);
+                logger.info("WalletService.getPricesFromDB(): Coin found in database -> {}", coinSymbol);
                 double coinPrice = coinData.get(0).getPrice_usd();
                 coinToUpdate.setPrice_usd(coinPrice);
             } else {
-                logger.info("No Coin '{}' in database", coinSymbol);
+                logger.info("WalletService.getPricesFromDB(): Coin '{}' not found in database", coinSymbol);
             }
         }
         valueCalculator();

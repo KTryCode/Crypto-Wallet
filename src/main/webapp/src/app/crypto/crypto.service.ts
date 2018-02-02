@@ -8,6 +8,7 @@ import {Coin} from "./coin.model";
 export class CryptoService {
 
   onCoinAdded = new EventEmitter<Coin>();
+  onUpdate = new EventEmitter();
 
   constructor(private http: Http) {
   }
@@ -20,13 +21,8 @@ export class CryptoService {
     return this.http.post('/api/wallet/add', coin).map(response => response.json());
   }
 
-  ifAlreadyExist(coin: Coin) {
-    let searchedCoin = this.getCryptos()
-      .filter((data) => data.symbol == coin.symbol)
-      .subscribe((result) => {
-          console.log("ifAlreadyOwned -> " + result);
-      });
-    console.log(searchedCoin!=null);
-    return searchedCoin != null;
+  updatePrices(){
+    console.log("cryptoService.updatePrices() called");
+    return this.http.get('/api/courses/update').map(response => response.json());
   }
 }

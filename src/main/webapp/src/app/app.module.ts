@@ -12,6 +12,7 @@ import { CryptoChartComponent } from './crypto/crypto-chart/crypto-chart.compone
 import {FormsModule} from "@angular/forms";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import { CryptoAddComponent } from './crypto/crypto-add/crypto-add.component';
+import { CryptoUpdateComponent } from './crypto/crypto-update/crypto-update.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { CryptoAddComponent } from './crypto/crypto-add/crypto-add.component';
     CryptoComponent,
     CryptoListComponent,
     CryptoChartComponent,
-    CryptoAddComponent
+    CryptoAddComponent,
+    CryptoUpdateComponent
   ],
   imports: [
     BrowserModule,
