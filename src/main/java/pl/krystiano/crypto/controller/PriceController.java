@@ -22,6 +22,7 @@ public class PriceController {
 
     @GetMapping(value ={"/update"})
     public Iterable<CoinData> updatePrices(){
+        System.out.println("CoinPriceService.updatePrices() called");
         return this.coinPriceService.getCoinPricesAndParseToDatabase();
     }
 }

@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {Coin} from "../coin.model";
 import {CryptoService} from "../crypto.service";
+import {Http} from "@angular/http";
 
 
 @Component({
@@ -13,14 +14,12 @@ export class CryptoListComponent implements OnInit {
 
   private coins: Coin[] = [];
 
-  constructor(private cryptoService: CryptoService) {
+  constructor(private cryptoService: CryptoService, private http: Http) {
   }
 
   ngOnInit() {
     this.getCryptos();
 
-
-    //TODO To update, not create new one
     this.cryptoService.onCoinAdded
       .subscribe(
         () => {
@@ -28,9 +27,26 @@ export class CryptoListComponent implements OnInit {
         }
       );
 
+    this.cryptoService.updatePricesSubject
+      .subscribe(
+      () => {
+        this.http.request("/api/wallet/");
+        this.http.request("/api/wallet/update_values");
+        this.http.request("/api/courses/list");
+        this.http.request("/api/courses/update");
+        console.log("Crypto-list-component update");
+        this.getCryptos();
+      }
+    );
+
     this.cryptoService.onUpdate
       .subscribe(
         () => {
+          this.http.request("/api/wallet/");
+          this.http.request("/api/wallet/update_values");
+          this.http.request("/api/courses/list");
+          this.http.request("/api/courses/update");
+          console.log("Crypto-list-component update");
           this.getCryptos();
         }
       )
@@ -41,6 +57,7 @@ export class CryptoListComponent implements OnInit {
       .subscribe(
         (coins: any[]) => this.coins = coins,
         (error) => console.log(error));
+    console.log("getCryptos called");
   }
 
 }

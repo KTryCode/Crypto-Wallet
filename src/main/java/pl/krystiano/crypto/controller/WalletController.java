@@ -22,6 +22,8 @@ public class WalletController {
 
     @GetMapping("/update_values")
     public Iterable<Coin> updateCoinValuesUSD() {
+        getPriceUsdFromDatabase();
+        System.out.println("Updateeee!");
         return this.walletService.valueCalculator();
     }
 
