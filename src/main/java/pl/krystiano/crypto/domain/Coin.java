@@ -1,13 +1,16 @@
 package pl.krystiano.crypto.domain;
 
 import lombok.*;
+import org.springframework.boot.autoconfigure.web.ResourceProperties;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
 @Entity
-@Data
-@Table(name = "my_wallet")
+@Getter
+@Setter
+@ToString
+@Table(name = "coins")
 public class Coin {
 
     public Coin() {
@@ -19,51 +22,16 @@ public class Coin {
     }
 
     @Id
-    @GeneratedValue(strategy =GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
     private String symbol;
     private double amount;
     private double price_usd;
     private double value;
 
-    public long getId() {
-        return id;
-    }
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "coin_data_id")
+    private CoinData coinData;
 
-    public void setId(long id) {
-        this.id = id;
-    }
-
-    public double getValue() {
-        return value;
-    }
-
-    public void setValue(double value) {
-        this.value = value;
-    }
-
-    public String getSymbol() {
-        return symbol;
-    }
-
-    public void setSymbol(String symbol) {
-        this.symbol = symbol;
-    }
-
-    public double getAmount() {
-        return amount;
-    }
-
-    public void setAmount(double amount) {
-        this.amount = amount;
-    }
-
-    public double getPrice_usd() {
-        return price_usd;
-    }
-
-    public void setPrice_usd(double price_usd) {
-        this.price_usd = price_usd;
-    }
 }
 

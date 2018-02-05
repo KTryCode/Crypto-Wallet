@@ -1,16 +1,15 @@
 package pl.krystiano.crypto.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import lombok.Data;
-import lombok.RequiredArgsConstructor;
+import lombok.*;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.validation.constraints.NotNull;
+import javax.persistence.*;
 
 @Entity
-@Data
+@Getter
+@Setter
+@ToString(exclude = "coin")
+@Table(name = "coin_data")
 @RequiredArgsConstructor
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class CoinData {
@@ -19,38 +18,14 @@ public class CoinData {
     private String id;
     private String name;
     private String symbol;
+    private int rank;
     private double price_usd;
+    private double price_btc;
+    private double percent_change_1h;
+    private double percent_change_24h;
+    private double percent_change_7d;
 
+    @OneToOne(mappedBy = "coinData")
+    private Coin coin;
 
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getSymbol() {
-        return symbol;
-    }
-
-    public void setSymbol(String symbol) {
-        this.symbol = symbol;
-    }
-
-    public double getPrice_usd() {
-        return price_usd;
-    }
-
-    public void setPrice_usd(double price_usd) {
-        this.price_usd = price_usd;
-    }
 }

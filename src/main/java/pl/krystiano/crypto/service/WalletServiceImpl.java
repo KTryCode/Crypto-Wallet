@@ -126,4 +126,14 @@ public class WalletServiceImpl implements WalletService {
         if(isCoinExist) logger.info("WalletService.ifCoinExists. Coin {} exist.");
         return isCoinExist;
     }
+
+    @Override
+    public void assignDataToCoin(){
+        Iterable<Coin> myCoins = this.walletRepository.findAll();
+        for(Coin coin: myCoins){
+            String symbolOfCoin = coin.getSymbol();
+            CoinData coinData = this.coinPriceRepository.findBySymbol(symbolOfCoin).get(0);
+            coin.setCoinData(coinData);
+        }
+    }
 }

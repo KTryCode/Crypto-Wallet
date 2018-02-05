@@ -16,5 +16,7 @@ public interface WalletService {
 
     Iterable<Coin> getPricesFromDatabase();
 
+    void assignDataToCoin();
+
 
 }
