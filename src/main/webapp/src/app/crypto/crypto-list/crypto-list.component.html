@@ -15,8 +15,8 @@
       <td>{{coin.symbol}}</td>
       <td>{{coin.amount.toFixed(3)}}</td>
       <td>{{coin.coinData.price_usd.toFixed(2)}}</td>
-      <td>{{coin.coinData.percen.toFixed(2)}}</td>
-      <td>{{coin.coinData.price_usd.toFixed(2)}}</td>
+      <td class="{{colorGreenOrRedIfIsGreaterThanZero(coin.coinData.percent_change_24h)}}">{{coin.coinData.percent_change_24h.toFixed(2)}}</td>
+      <td class="{{colorGreenOrRedIfIsGreaterThanZero(coin.coinData.percent_change_7d)}}">{{coin.coinData.percent_change_7d.toFixed(2)}}</td>
       <td>{{coin.value.toFixed(2)}}</td>
     </tr>
     </tbody>

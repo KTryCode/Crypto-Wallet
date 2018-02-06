@@ -35,5 +35,9 @@ export class CryptoListComponent implements OnInit {
       );
   }
 
+  colorGreenOrRedIfIsGreaterThanZero(value : number){
+    return value>0 ? 'text-success' : 'text-danger';
+  }
+
 
 }
