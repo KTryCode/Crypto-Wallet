@@ -26,7 +26,6 @@ public class Coin {
     private long id;
     private String symbol;
     private double amount;
-    private double price_usd;
     private double value;
 
     @OneToOne(cascade = CascadeType.ALL)

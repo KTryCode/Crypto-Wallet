@@ -69,7 +69,7 @@ public class WalletServiceImpl implements WalletService {
         logger.info("WalletService: valueCalculator()");
         Iterable<Coin> ownedCoins = this.listAll();
         ownedCoins.forEach(coin -> {
-            double valueUsd = coin.getAmount() * coin.getPrice_usd();
+            double valueUsd = coin.getAmount() * coin.getCoinData().getPrice_usd();
             coin.setValue(valueUsd);
         });
         return this.walletRepository.save(ownedCoins);
@@ -87,7 +87,7 @@ public class WalletServiceImpl implements WalletService {
             if (!coinData.isEmpty()) {
                 logger.info("znaleziono kryptowalute w bazie -> {}", coinSymbol);
                 double coinPrice = coinData.get(0).getPrice_usd();
-                coinToUpdate.setPrice_usd(coinPrice);
+                coinToUpdate.getCoinData().setPrice_usd(coinPrice);
             } else {
                 logger.info("No Coin '{}' in database", coinSymbol);
             }

@@ -5,6 +5,8 @@
       <th class="text-center">Symbol</th>
       <th class="text-center">Amount</th>
       <th class="text-center">Price [USD]</th>
+      <th class="text-center">Change 24h [%]</th>
+      <th class="text-center">Change 7d [%]</th>
       <th class="text-center">Value [USD]</th>
     </tr>
     </thead>
@@ -12,7 +14,9 @@
     <tr *ngFor="let coin of coins" style="padding-top: 8px">
       <td>{{coin.symbol}}</td>
       <td>{{coin.amount.toFixed(3)}}</td>
-      <td>{{coin.price_usd.toFixed(2)}}</td>
+      <td>{{coin.coinData.price_usd.toFixed(2)}}</td>
+      <td>{{coin.coinData.percen.toFixed(2)}}</td>
+      <td>{{coin.coinData.price_usd.toFixed(2)}}</td>
       <td>{{coin.value.toFixed(2)}}</td>
     </tr>
     </tbody>
