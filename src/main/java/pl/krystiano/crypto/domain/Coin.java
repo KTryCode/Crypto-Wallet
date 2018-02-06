@@ -1,5 +1,6 @@
 package pl.krystiano.crypto.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 import org.springframework.boot.autoconfigure.web.ResourceProperties;
 
@@ -31,6 +32,11 @@ public class Coin {
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "coin_data_id")
     private CoinData coinData;
+
+    @JsonIgnore
+    public double getPrice_usd(){
+        return this.getCoinData().getPrice_usd();
+    }
 
 }
 

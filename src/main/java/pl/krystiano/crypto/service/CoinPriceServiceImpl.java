@@ -27,15 +27,12 @@ public class CoinPriceServiceImpl implements CoinPriceService {
 
     @Autowired
     private CoinPriceRepository coinPriceRepository;
-    @Autowired
-    private WalletService walletService;
 
     @Override
     @Transactional
     public Iterable<CoinData> listAll() {
         return this.coinPriceRepository.findAll();
     }
-
 
     @Override
     public Iterable<CoinData> getCoinPricesAndParseToDatabase() {
@@ -56,9 +53,8 @@ public class CoinPriceServiceImpl implements CoinPriceService {
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
-        } finally{
-            this.walletService.getPricesFromDatabase();
         }
+
         return null;
     }
 }

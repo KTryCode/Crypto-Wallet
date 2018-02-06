@@ -11,7 +11,6 @@ import pl.krystiano.crypto.domain.CoinData;
 import pl.krystiano.crypto.repository.CoinPriceRepository;
 import pl.krystiano.crypto.repository.WalletRepository;
 
-import java.util.List;
 import java.util.stream.Stream;
 import java.util.stream.StreamSupport;
 
@@ -52,7 +51,6 @@ public class WalletServiceImpl implements WalletService {
         }
     }
 
-    //TODO Fix to method save only when coin is not exist
     @Override
     public Iterable<Coin> save(Iterable<Coin> coins) {
         return this.walletRepository.save(coins);
@@ -69,34 +67,15 @@ public class WalletServiceImpl implements WalletService {
     public Iterable<Coin> valueCalculator() {
         logger.info("WalletService: valueCalculator()");
         Iterable<Coin> ownedCoins = this.listAll();
-        ownedCoins.forEach(coin -> {
-            double valueUsd = coin.getAmount() * coin.getCoinData().getPrice_usd();
-            coin.setValue(valueUsd);
-        });
+        ownedCoins.forEach(this::valueCalculator);
         return this.walletRepository.save(ownedCoins);
     }
 
-    //TODO Fix exception, when coin is not found
     @Override
-    @Transactional
-    public Iterable<Coin> getPricesFromDatabase() {
-        Iterable<Coin> ownedCoins = this.listAll();
-
-        for (Coin coinToUpdate : ownedCoins) {
-            String coinSymbol = coinToUpdate.getSymbol();
-            List<CoinData> coinData = coinPriceRepository.findBySymbol(coinSymbol);
-            if (!coinData.isEmpty()) {
-                logger.info("znaleziono kryptowalute w bazie -> {}", coinSymbol);
-                double coinPrice = coinData.get(0).getPrice_usd();
-                coinToUpdate.getCoinData().setPrice_usd(coinPrice);
-            } else {
-                logger.info("No Coin '{}' in database", coinSymbol);
-            }
-        }
-        valueCalculator();
-        logger.info("getPricesFromDatabase(): Prices of coins downloaded from CoinBase and parsed to your wallet");
-        return this.save(ownedCoins);
-
+    public Coin valueCalculator(Coin coin) {
+        double valueUSD = coin.getAmount() * coin.getPrice_usd();
+        coin.setValue(valueUSD);
+        return coin;
     }
 
 
@@ -130,7 +109,7 @@ public class WalletServiceImpl implements WalletService {
     }
 
     @Override
-    public void assignDataToCoin() {
+    public void assignDataToMyWallet() {
         Iterable<Coin> myCoins = this.walletRepository.findAll();
         for (Coin coin : myCoins) {
             assignDataToCoin(coin);

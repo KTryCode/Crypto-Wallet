@@ -8,7 +8,6 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import pl.krystiano.crypto.domain.Coin;
-import pl.krystiano.crypto.repository.WalletRepository;
 import pl.krystiano.crypto.service.CoinPriceService;
 import pl.krystiano.crypto.service.WalletService;
 
@@ -33,7 +32,7 @@ public class CryptoApplication implements CommandLineRunner {
     public void run(String... strings) {
         this.coinPriceService.getCoinPricesAndParseToDatabase();
         myFinances();
-        this.walletService.assignDataToCoin();
+        this.walletService.assignDataToMyWallet();
         printMyWallet();
     }
 

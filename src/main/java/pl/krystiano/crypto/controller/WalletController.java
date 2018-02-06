@@ -17,24 +17,24 @@ public class WalletController {
 
     @GetMapping(value = {"", "/"})
     public Iterable<Coin> listAll() {
+        updateCoinValuesUSD();
         return this.walletService.listAll();
     }
 
     @GetMapping("/update_values")
     public Iterable<Coin> updateCoinValuesUSD() {
-        getPriceUsdFromDatabase();
         return this.walletService.valueCalculator();
     }
 
 
     @PostMapping("/add")
     public Coin saveCoin(@RequestBody Coin coinToAdd) {
-        return this.walletService.save(coinToAdd);
+        this.walletService.save(coinToAdd);
+        updateCoinValuesUSD();
+        return coinToAdd;
     }
 
-    @GetMapping("/update_prices")
-    public Iterable<Coin> getPriceUsdFromDatabase() {
-        return this.walletService.getPricesFromDatabase();
-    }
+
+
 }
 
