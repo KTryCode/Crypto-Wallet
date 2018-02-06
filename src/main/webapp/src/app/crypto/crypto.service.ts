@@ -20,6 +20,11 @@ export class CryptoService {
     return this.http.post('/api/wallet/add', coin).map(response => response.json());
   }
 
+  removeCoin(coin: Coin){
+    console.log("Coin " + coin.symbol + " deleted");
+    return this.http.post('/api/wallet/remove', coin).map(response => response.json());
+  }
+
   ifAlreadyExist(coin: Coin) {
     let searchedCoin = this.getCryptos()
       .filter((data) => data.symbol == coin.symbol)

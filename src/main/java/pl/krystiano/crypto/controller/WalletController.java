@@ -34,6 +34,12 @@ public class WalletController {
         return coinToAdd;
     }
 
+    //TODO Implement
+    @RequestMapping("/remove")
+    public Coin removeCoin(@RequestBody Coin coinToDelete){
+        return coinToDelete;
+    }
+
 
 
 }
