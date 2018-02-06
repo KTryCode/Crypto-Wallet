@@ -43,6 +43,7 @@ public class WalletServiceImpl implements WalletService {
                 coinInWallet.setAmount(totalAmountOfCoin);
                 return this.updateCoinAmount(coinInWallet);
             } else {
+                coinToSave = this.assignDataToCoin(coinToSave);
                 return this.walletRepository.save(coinToSave);
             }
         } else {
@@ -98,16 +99,6 @@ public class WalletServiceImpl implements WalletService {
 
     }
 
-    //TODO awful... get rid of it
-    private boolean isCoinAlreadyOwned(Coin searchedCoin) {
-        String searchedCoinSymbol = searchedCoin.getSymbol();
-        Iterable<Coin> ownedCoins = this.listAll();
-        Stream<Coin> streamOfOwnedCoins = StreamSupport.stream(ownedCoins.spliterator(), false);
-        Stream<String> symbolsOfOwnedCoins = streamOfOwnedCoins.map(Coin::getSymbol);
-        boolean isCoinOwned = symbolsOfOwnedCoins.anyMatch(searchedCoinSymbol::equals);
-        if(isCoinOwned) logger.info("Coin is already owned.");
-        return isCoinOwned;
-    }
 
     @Override
     public Coin updateCoinAmount(Coin coin) {
@@ -123,17 +114,34 @@ public class WalletServiceImpl implements WalletService {
         Stream<CoinData> streamOfCoinsInDatabase = StreamSupport.stream(coinsInDatabase.spliterator(), false);
         Stream<String> symbolsOfCoinsInDatabase = streamOfCoinsInDatabase.map(CoinData::getSymbol);
         boolean isCoinExist = symbolsOfCoinsInDatabase.anyMatch(searchedCoinSymbol::equals);
-        if(isCoinExist) logger.info("WalletService.ifCoinExists. Coin {} exist.");
+        if (isCoinExist) logger.info("WalletService.ifCoinExists. Coin {} exist.", searchedCoin.getSymbol());
         return isCoinExist;
     }
 
+    //TODO awful... get rid of it
+    private boolean isCoinAlreadyOwned(Coin searchedCoin) {
+        String searchedCoinSymbol = searchedCoin.getSymbol();
+        Iterable<Coin> ownedCoins = this.listAll();
+        Stream<Coin> streamOfOwnedCoins = StreamSupport.stream(ownedCoins.spliterator(), false);
+        Stream<String> symbolsOfOwnedCoins = streamOfOwnedCoins.map(Coin::getSymbol);
+        boolean isCoinOwned = symbolsOfOwnedCoins.anyMatch(searchedCoinSymbol::equals);
+        if (isCoinOwned) logger.info("Coin is already owned.");
+        return isCoinOwned;
+    }
+
     @Override
-    public void assignDataToCoin(){
+    public void assignDataToCoin() {
         Iterable<Coin> myCoins = this.walletRepository.findAll();
-        for(Coin coin: myCoins){
-            String symbolOfCoin = coin.getSymbol();
-            CoinData coinData = this.coinPriceRepository.findBySymbol(symbolOfCoin).get(0);
-            coin.setCoinData(coinData);
+        for (Coin coin : myCoins) {
+            assignDataToCoin(coin);
         }
+    }
+
+    @Override
+    public Coin assignDataToCoin(Coin coin) {
+        String symbolOfCoin = coin.getSymbol();
+        CoinData coinData = this.coinPriceRepository.findBySymbol(symbolOfCoin).get(0);
+        coin.setCoinData(coinData);
+        return coin;
     }
 }

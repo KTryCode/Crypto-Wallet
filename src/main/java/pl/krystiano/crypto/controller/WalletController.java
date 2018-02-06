@@ -22,15 +22,14 @@ public class WalletController {
 
     @GetMapping("/update_values")
     public Iterable<Coin> updateCoinValuesUSD() {
+        getPriceUsdFromDatabase();
         return this.walletService.valueCalculator();
     }
 
+
     @PostMapping("/add")
-    public Coin saveCryptocurrency(@RequestBody Coin cryptocurrency) {
-        Coin coinToAdd = this.walletService.save(cryptocurrency);
-        getPriceUsdFromDatabase();
-        updateCoinValuesUSD();
-        return coinToAdd;
+    public Coin saveCoin(@RequestBody Coin coinToAdd) {
+        return this.walletService.save(coinToAdd);
     }
 
     @GetMapping("/update_prices")

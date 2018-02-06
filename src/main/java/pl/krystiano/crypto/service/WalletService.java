@@ -18,5 +18,7 @@ public interface WalletService {
 
     void assignDataToCoin();
 
+    Coin assignDataToCoin(Coin coin);
+
 
 }

@@ -1,5 +1,6 @@
 package pl.krystiano.crypto.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.*;
 
@@ -25,6 +26,7 @@ public class CoinData {
     private double percent_change_24h;
     private double percent_change_7d;
 
+    @JsonIgnore
     @OneToOne(mappedBy = "coinData")
     private Coin coin;
 
