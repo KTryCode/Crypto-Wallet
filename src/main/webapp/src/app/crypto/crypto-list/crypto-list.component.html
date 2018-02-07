@@ -1,5 +1,5 @@
 <div>
-  <table class="table table-responsive table-hover" >
+  <table class="table table-responsive table-hover">
     <thead>
     <tr class="bg-primary">
       <th class="text-center">Symbol</th>
@@ -16,10 +16,18 @@
       <td>{{coin.symbol}}</td>
       <td>{{coin.amount.toFixed(3)}}</td>
       <td>{{coin.coinData.price_usd.toFixed(2)}}</td>
-      <td class="{{colorGreenOrRedIfIsGreaterThanZero(coin.coinData.percent_change_24h)}}">{{coin.coinData.percent_change_24h.toFixed(2)}}</td>
-      <td class="{{colorGreenOrRedIfIsGreaterThanZero(coin.coinData.percent_change_7d)}}">{{coin.coinData.percent_change_7d.toFixed(2)}}</td>
+      <td class="{{colorGreenOrRedIfIsGreaterThanZero(coin.coinData.percent_change_24h)}}">
+        {{coin.coinData.percent_change_24h.toFixed(2)}}
+      </td>
+      <td class="{{colorGreenOrRedIfIsGreaterThanZero(coin.coinData.percent_change_7d)}}">
+        {{coin.coinData.percent_change_7d.toFixed(2)}}
+      </td>
       <td>{{coin.value.toFixed(2)}}</td>
-      <td><app-crypto-remove></app-crypto-remove></td>
+      <td>
+        <app-crypto-remove
+          [coin]=coin>
+        </app-crypto-remove>
+      </td>
     </tr>
     </tbody>
   </table>

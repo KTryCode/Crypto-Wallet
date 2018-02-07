@@ -11,6 +11,7 @@ import {CryptoService} from "../crypto.service";
 
 export class CryptoListComponent implements OnInit {
 
+  master = 'Crypto-list';
   private coins: Coin[] = [];
 
   constructor(private cryptoService: CryptoService) {

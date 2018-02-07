@@ -21,6 +21,7 @@ import java.time.LocalTime;
 import java.util.List;
 
 @Service
+@Transactional
 public class CoinPriceServiceImpl implements CoinPriceService {
 
     Logger logger = LoggerFactory.getLogger(this.getClass());

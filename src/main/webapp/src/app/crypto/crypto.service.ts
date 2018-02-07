@@ -3,6 +3,7 @@ import {Http} from "@angular/http";
 import "rxjs/add/operator/map";
 import 'rxjs/Rx';
 import {Coin} from "./coin.model";
+import {map} from "rxjs/operator/map";
 
 @Injectable()
 export class CryptoService {
@@ -17,11 +18,15 @@ export class CryptoService {
   }
 
   addCoin(coin: Coin) {
+    console.log(this.http);
+    this.removeCoin(coin);
     return this.http.post('/api/wallet/add', coin).map(response => response.json());
   }
 
   removeCoin(coin: Coin){
-    console.log("Coin " + coin.symbol + " deleted");
+    console.log('/api/wallet/remove');
+    console.log(this.http);
+    // return this.http.delete('/api/wallet/removefake', coin);
     return this.http.post('/api/wallet/remove', coin).map(response => response.json());
   }
 

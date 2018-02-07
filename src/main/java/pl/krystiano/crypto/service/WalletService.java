@@ -7,7 +7,8 @@ public interface WalletService {
     Iterable<Coin> listAll();
 
     Coin save(Coin coin);
-    void remove(Coin coin);
+
+    void remove(String symbol);
 
     Iterable<Coin> save(Iterable<Coin> coins);
 

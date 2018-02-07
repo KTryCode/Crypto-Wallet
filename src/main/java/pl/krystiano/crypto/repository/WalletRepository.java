@@ -18,4 +18,6 @@ public interface WalletRepository extends JpaRepository<Coin, Integer> {
     @Query("UPDATE Coin c SET c.amount = :amount where c.symbol= :symbol")
     int updateCoinAmount(@Param("symbol") String coinSymbol, @Param("amount") double amount);
 
+    void removeBySymbol(String symbol);
+
 }
