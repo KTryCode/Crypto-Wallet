@@ -8,9 +8,9 @@ public interface WalletService {
 
     Coin save(Coin coin);
 
-    void remove(String symbol);
-
     Iterable<Coin> save(Iterable<Coin> coins);
+
+    void remove(String symbol);
 
     Coin updateCoinAmount(Coin coin);
 
@@ -21,6 +21,8 @@ public interface WalletService {
     void assignDataToMyWallet();
 
     Coin assignDataToCoin(Coin coin);
+
+    Coin findCoinBySymbol(String coinSymbol);
 
 
 }

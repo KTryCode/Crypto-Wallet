@@ -37,7 +37,7 @@ public class WalletServiceImpl implements WalletService {
     public Coin save(Coin coinToSave) {
         if (ifCoinExists(coinToSave)) {
             if (isCoinAlreadyOwned(coinToSave)) {
-                Coin coinInWallet = this.walletRepository.findBySymbol(coinToSave.getSymbol()).get(0);
+                Coin coinInWallet = this.walletRepository.findBySymbol(coinToSave.getSymbol());
                 double totalAmountOfCoin = coinToSave.getAmount() + coinInWallet.getAmount();
                 coinInWallet.setAmount(totalAmountOfCoin);
                 return this.updateCoinAmount(coinInWallet);
@@ -121,5 +121,10 @@ public class WalletServiceImpl implements WalletService {
         CoinData coinData = this.coinPriceRepository.findBySymbol(symbolOfCoin).get(0);
         coin.setCoinData(coinData);
         return coin;
+    }
+
+    @Override
+    public Coin findCoinBySymbol(String coinSymbol){
+        return this.walletRepository.findBySymbol(coinSymbol);
     }
 }

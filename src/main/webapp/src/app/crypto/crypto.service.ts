@@ -24,7 +24,7 @@ export class CryptoService {
 
   removeCoin(coin: Coin) {
     console.log("Crypto_service.removeCoin() " + coin.symbol);
-    return this.http.post('/api/wallet/remove', coin).map(response =>
+    return this.http.delete('/api/wallet/remove/' + coin.symbol).map(response =>
       response.json());
   }
 

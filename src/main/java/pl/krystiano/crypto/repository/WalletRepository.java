@@ -12,7 +12,7 @@ import java.util.List;
 
 @Repository
 public interface WalletRepository extends JpaRepository<Coin, Integer> {
-    List<Coin> findBySymbol(String symbol);
+    Coin findBySymbol(String symbol);
 
     @Modifying
     @Query("UPDATE Coin c SET c.amount = :amount WHERE c.symbol= :symbol")

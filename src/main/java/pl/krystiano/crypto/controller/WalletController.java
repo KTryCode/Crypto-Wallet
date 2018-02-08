@@ -55,9 +55,12 @@ public class WalletController {
     }
 
     @DeleteMapping("/remove/{symbol}")
-    public void deleteCoin(@PathVariable String symbol) {
-        System.out.println("Delete Coin . Controller" + symbol);
+    public Coin deleteCoin(@PathVariable String symbol) {
+        System.out.println("DeleteMapping Coin . Controller " + symbol);
+        Coin coinToDelete = this.walletService.findCoinBySymbol(symbol);
         this.walletService.remove(symbol);
+        this.listAll();
+        return coinToDelete;
     }
 
 }
