@@ -9,6 +9,7 @@ import {map} from "rxjs/operator/map";
 export class CryptoService {
 
   onCoinAdded = new EventEmitter<Coin>();
+  onCoinRemoved = new EventEmitter<Coin>();
 
   constructor(private http: Http) {
   }
@@ -18,25 +19,22 @@ export class CryptoService {
   }
 
   addCoin(coin: Coin) {
-    console.log(this.http);
-    this.removeCoin(coin);
     return this.http.post('/api/wallet/add', coin).map(response => response.json());
   }
 
-  removeCoin(coin: Coin){
-    console.log('/api/wallet/remove');
-    console.log(this.http);
-    // return this.http.delete('/api/wallet/removefake', coin);
-    return this.http.post('/api/wallet/remove', coin).map(response => response.json());
+  removeCoin(coin: Coin) {
+    console.log("Crypto_service.removeCoin() " + coin.symbol);
+    return this.http.post('/api/wallet/remove', coin).map(response =>
+      response.json());
   }
 
   ifAlreadyExist(coin: Coin) {
     let searchedCoin = this.getCryptos()
       .filter((data) => data.symbol == coin.symbol)
       .subscribe((result) => {
-          console.log("ifAlreadyOwned -> " + result);
+        console.log("ifAlreadyOwned -> " + result);
       });
-    console.log(searchedCoin!=null);
+    console.log(searchedCoin != null);
     return searchedCoin != null;
   }
 }

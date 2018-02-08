@@ -49,13 +49,14 @@ public class WalletController {
     public Coin removeCoin(@RequestBody Coin coinToDelete) {
         logger.info("deleting");
         System.out.println("Deleting....");
+        this.walletService.remove(coinToDelete.getSymbol());
+        this.listAll();
         return coinToDelete;
     }
 
     @DeleteMapping("/remove/{symbol}")
     public void deleteCoin(@PathVariable String symbol) {
         System.out.println("Delete Coin . Controller" + symbol);
-        logger.info("Delete Coin . Controller" + symbol);
         this.walletService.remove(symbol);
     }
 

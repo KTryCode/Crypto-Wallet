@@ -56,7 +56,6 @@ public class WalletServiceImpl implements WalletService {
         return this.walletRepository.save(coins);
     }
 
-    //TODO implement method
     @Override
     public void remove(String symbol) {
         logger.info("Coin deleted from wallet! -> {}", symbol);

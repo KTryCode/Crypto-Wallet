@@ -2,9 +2,9 @@ TODO 3. Naprawa kolorów
 TODO 4. Dodanie przycisku aktualizujacego kursy i przeliczajacego wartości
 TODO 5. Informacja o zmianie kursy przez ostatnie 24h/72h/tydzień
 TODO 6. Walidacja formularza dodania kryptowaluty - można dodac jedynie te kryptowaluty, które występują w bazie
-TODO 7. Poprawic model monety
 TODO 8. Zakaz wprowadzania ujemnej liczby krypto
 TODO 9. naprawa wykresu. Wykresy z kolejnych stanów portfela nakładaja ise na siebie
 TODO 10. Pobieranie 500+ kryptowalut z bazy
 TODO 11. Dodanie zmiany kursu
 TODO 12. Niech mozliwośc edycji i usunięci była możliwa po najechaniu myszką na odpowiedni wiersz z krypto
+TODO 13. Aktualizuje kursy co kilka minut

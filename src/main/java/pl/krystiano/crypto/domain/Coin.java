@@ -29,7 +29,7 @@ public class Coin {
     private double amount;
     private double value;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne()
     @JoinColumn(name = "coin_data_id")
     private CoinData coinData;
 

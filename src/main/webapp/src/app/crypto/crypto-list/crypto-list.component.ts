@@ -27,7 +27,17 @@ export class CryptoListComponent implements OnInit {
     //TODO To update, not create new one
     this.cryptoService.onCoinAdded
       .subscribe(
-        (coin: Coin) => {
+        () => {
+          this.cryptoService.getCryptos()
+            .subscribe(
+              (coins: any[]) => this.coins = coins,
+              (error) => console.log(error));
+        }
+      );
+
+    this.cryptoService.onCoinRemoved
+      .subscribe(
+        () => {
           this.cryptoService.getCryptos()
             .subscribe(
               (coins: any[]) => this.coins = coins,

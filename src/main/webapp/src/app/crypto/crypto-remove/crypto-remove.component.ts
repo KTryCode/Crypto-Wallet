@@ -17,8 +17,10 @@ export class CryptoRemoveComponent implements OnInit {
   }
 
   //TODO implement
-  onDelete() {
-    console.log("Deleting {}...", this.coin.symbol);
-    this.cryptoService.removeCoin(this.coin).subscribe((coin) => console.log(coin));
+  onRemove() {
+    console.log("Crypto-remove.onRemove(). Deleting ", this.coin.symbol);
+    this.cryptoService.removeCoin(this.coin).subscribe(
+      () => this.cryptoService.onCoinRemoved.emit(this.coin)
+    );
   }
 }

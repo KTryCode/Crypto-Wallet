@@ -15,8 +15,9 @@ public interface WalletRepository extends JpaRepository<Coin, Integer> {
     List<Coin> findBySymbol(String symbol);
 
     @Modifying
-    @Query("UPDATE Coin c SET c.amount = :amount where c.symbol= :symbol")
+    @Query("UPDATE Coin c SET c.amount = :amount WHERE c.symbol= :symbol")
     int updateCoinAmount(@Param("symbol") String coinSymbol, @Param("amount") double amount);
+
 
     void removeBySymbol(String symbol);
 
