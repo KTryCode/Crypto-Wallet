@@ -3,8 +3,8 @@ import {CoinData} from "./coin_data.model";
 export class Coin {
   public symbol: string;
   public amount: number;
-  public value: number;
-  public coin_data: CoinData;
+  public value?: number;
+  public coin_data?: CoinData;
 
 
   constructor(symbol: string, amount: number, value: number, coin_data: CoinData) {

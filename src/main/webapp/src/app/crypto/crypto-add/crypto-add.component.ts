@@ -1,4 +1,5 @@
 import {Component, OnInit} from '@angular/core';
+import {FormControl, ReactiveFormsModule, FormGroup, Validators} from "@angular/forms";
 import {Coin} from "../coin.model";
 import {CryptoService} from "../crypto.service";
 
@@ -9,8 +10,9 @@ import {CryptoService} from "../crypto.service";
 })
 export class CryptoAddComponent implements OnInit {
 
-  added_coin_symbol: string = null;
-  added_coin_amount: number = null;
+  symbols = ['BTC', 'ETH', 'XRP', "XLM", 'QTUM', 'MIOTA', 'SUB', 'BCH'];
+
+  model = new Coin(this.symbols[0], 1.2, null, null);
 
   constructor(private cryptoService: CryptoService) {
   }
@@ -19,15 +21,28 @@ export class CryptoAddComponent implements OnInit {
   }
 
   onCoinAdd(event) {
-    let coin: Coin = new Coin(this.added_coin_symbol, this.added_coin_amount, null, null);
+    let coin: Coin = new Coin(null, null, null, null);
 
     this.cryptoService.addCoin(coin)
       .subscribe(
         (newCoin: Coin) => {
-          this.added_coin_amount = null;
-          this.added_coin_symbol = null;
+          // this.added_coin_amount = null;
+          // this.added_coin_symbol = null;
           this.cryptoService.onCoinAdded.emit(newCoin);
         })
 
   }
+  addCoin(){
+    this.model=new Coin('XRP', 100, null, null);
+  }
+  onSubmit(){
+
+  }
+
+  // TODO: Remove this when we're done
+  get diagnostic() {
+    return JSON.stringify(this.model)
+  }
+
+
 }

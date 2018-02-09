@@ -9,10 +9,11 @@ import { CryptoListComponent } from './crypto/crypto-list/crypto-list.component'
 import {CryptoService} from "./crypto/crypto.service";
 import {HttpModule} from "@angular/http";
 import { CryptoChartComponent } from './crypto/crypto-chart/crypto-chart.component';
-import {FormsModule} from "@angular/forms";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import { CryptoAddComponent } from './crypto/crypto-add/crypto-add.component';
 import { CryptoRemoveComponent } from './crypto/crypto-remove/crypto-remove.component';
+import {CommonModule} from "@angular/common";
 
 @NgModule({
   declarations: [
@@ -29,7 +30,9 @@ import { CryptoRemoveComponent } from './crypto/crypto-remove/crypto-remove.comp
     HttpClientModule,
     HttpModule,
     BrowserAnimationsModule,
+    CommonModule,
     FormsModule,
+    ReactiveFormsModule
   ],
   providers: [CryptoService, CryptoChartComponent],
   bootstrap: [AppComponent]
