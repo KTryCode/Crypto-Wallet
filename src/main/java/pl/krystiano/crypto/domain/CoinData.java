@@ -10,7 +10,7 @@ import javax.persistence.*;
 @Getter
 @Setter
 @ToString(exclude = "coin")
-@Table(name = "coin_data")
+@Table(name = "coinData")
 @RequiredArgsConstructor
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class CoinData {

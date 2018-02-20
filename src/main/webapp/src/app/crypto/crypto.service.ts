@@ -37,4 +37,12 @@ export class CryptoService {
     console.log(searchedCoin != null);
     return searchedCoin != null;
   }
+
+  getTotalValue(coins: Coin[]):number{
+    let totalValueUSD: number = 0;
+    for (let coin of coins) {
+      totalValueUSD += coin.value;
+    }
+    return totalValueUSD;
+  }
 }

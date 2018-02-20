@@ -29,6 +29,18 @@
         </app-crypto-remove>
       </td>
     </tr>
+    <tr class="bg-info"
+    *ngIf="coins.length>1">
+      <td>Total</td>
+      <td></td>
+      <td></td>
+      <td class="{{colorGreenOrRedIfIsGreaterThanZero(getTotalChange24h())}}"
+      >{{getTotalChange24h().toFixed(2)}}
+      <td class="{{colorGreenOrRedIfIsGreaterThanZero(getTotalChange24h())}}"
+      >{{getTotalChange7d().toFixed(2)}}
+      <td>{{getTotalValueUSD().toFixed(2)}}</td>
+      <td></td>
+    </tr>
     </tbody>
   </table>
 </div>

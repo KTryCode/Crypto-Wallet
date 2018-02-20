@@ -48,10 +48,10 @@ public class CryptoApplication implements CommandLineRunner {
         this.walletService.save(new Coin("BCH", 0.1322));
         this.walletService.save(new Coin("DASH", 0.203));
         this.walletService.save(new Coin("LSK", 7.45));
-//        this.walletService.save(new Coin("MIOTA", 17.9820));
-//        this.walletService.save(new Coin("XMR", 0.4196));
-//        this.walletService.save(new Coin("QTUM", 3.8262));
-//        this.walletService.save(new Coin("XRP", 99.9));
-//        this.walletService.save(new Coin("XLM", 199.9));
+        this.walletService.save(new Coin("MIOTA", 17.9820));
+        this.walletService.save(new Coin("XMR", 0.4196));
+        this.walletService.save(new Coin("QTUM", 3.8262));
+        this.walletService.save(new Coin("XRP", 99.9));
+        this.walletService.save(new Coin("XLM", 199.9));
     }
 }
